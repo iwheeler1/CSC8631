@@ -4,6 +4,7 @@ author: "Isaac Wheeler"
 date: "26/11/2020"
 output: pdf_document
 ---
+In this project, I am going to be providing some analysis of the video stats data; asking a few different questions and trying to find any sort of pattern within these. First off, we load the dataset into R. Video stats are only provided for years 3-7 so this is where the my analysis will be based upon.
 
 ```{r}
 year3=read.csv("C:\\Users\\Isaac\\OneDrive\\Documents\\CSC8631\\8631proj\\data\\cyber-security-3_video-stats.csv",header = TRUE)
@@ -13,4 +14,4 @@ year6=read.csv("C:\\Users\\Isaac\\OneDrive\\Documents\\CSC8631\\8631proj\\data\\
 year7=read.csv("C:\\Users\\Isaac\\OneDrive\\Documents\\CSC8631\\8631proj\\data\\cyber-security-7_video-stats.csv",header = TRUE)
 ```
 
-
+The first question I am going to investigate is if there is any significant differences between years in terms of engagement with the videos. This will be done by looking into how much of the intake watched up to different percentages of the video.
