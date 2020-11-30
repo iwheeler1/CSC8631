@@ -1,4 +1,9 @@
-helper.function <- function()
+helper.avgper <- function(y)
 {
-  return(1)
+  temp = rep(NULL,7)
+  for (i in 9:15)
+  {
+    temp[i-8] = sum(y[i])/13
+  }
+  return(temp)
 }
