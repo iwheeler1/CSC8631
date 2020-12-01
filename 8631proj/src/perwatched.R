@@ -59,5 +59,4 @@ ggplot(datas, aes(fill=perwatched, y=values, x=year)) +
   geom_bar(position="dodge", stat="identity") + labs(x="Year",y="% of views") + labs(fill = "% watched")
 
 #next things to do
-#compare regions 
 #compare devices
