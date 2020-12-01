@@ -60,5 +60,4 @@ ggplot(datas, aes(fill=perwatched, y=values, x=year)) +
 
 #next things to do
 #compare regions 
-#see if the longer videos are more likely to be abandoned
 #compare devices

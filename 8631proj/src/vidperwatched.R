@@ -6,17 +6,9 @@ y5=read.csv("C:\\Users\\Isaac\\OneDrive\\Documents\\CSC8631\\8631proj\\data\\cyb
 y6=read.csv("C:\\Users\\Isaac\\OneDrive\\Documents\\CSC8631\\8631proj\\data\\cyber-security-6_video-stats.csv",header = TRUE)
 y7=read.csv("C:\\Users\\Isaac\\OneDrive\\Documents\\CSC8631\\8631proj\\data\\cyber-security-7_video-stats.csv",header = TRUE)
 
-#compare the videos across the years
-#simple plot of the how many views the videos got over the years
-views = rep(NULL,13)
-for (j in 1:13)
-{
-  views[j] = y3[j,4] + y4[j,4] + y5[j,4] + y6[j,4] + y7[j,4]
-}
-v = c("1.1","1.14","1.17","1.19","1.5","2.1","2.11","2.17","2.4","3.1","3.14","3.15","3.2")
-viewdf = data.frame(video=v, views=views)
-ggplot(data=viewdf, aes(x=video, y=views)) + geom_bar(stat="identity", fill="steelblue") + labs(x="Video",y="Views")
 
+#split bar plot showing how videos break down by percentage watched
+#this is probably the best plot to show how a video has "performed" overall
 #loop through each video and each year, pulling out the values and transferring to years
 temp = rep(NULL,7)
 val = c()
@@ -42,6 +34,7 @@ ggplot(datas, aes(fill=perwatched, y=values, x=videos)) +
 
 
 #same plot but this time just use percentages rather than views
+#good for asking "for the people who watched this video, how far did they get?"
 temp = rep(NULL,7)
 val = c()
 for (i in 1:13)
