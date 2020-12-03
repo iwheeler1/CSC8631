@@ -1,11 +1,10 @@
 library(ggplot2)
 library(ProjectTemplate); load.project()
-y3=read.csv("C:\\Users\\Isaac\\OneDrive\\Documents\\CSC8631\\8631proj\\data\\cyber-security-3_video-stats.csv",header = TRUE)
-y4=read.csv("C:\\Users\\Isaac\\OneDrive\\Documents\\CSC8631\\8631proj\\data\\cyber-security-4_video-stats.csv",header = TRUE)
-y5=read.csv("C:\\Users\\Isaac\\OneDrive\\Documents\\CSC8631\\8631proj\\data\\cyber-security-5_video-stats.csv",header = TRUE)
-y6=read.csv("C:\\Users\\Isaac\\OneDrive\\Documents\\CSC8631\\8631proj\\data\\cyber-security-6_video-stats.csv",header = TRUE)
-y7=read.csv("C:\\Users\\Isaac\\OneDrive\\Documents\\CSC8631\\8631proj\\data\\cyber-security-7_video-stats.csv",header = TRUE)
-
+y3=read.csv("8631proj\\data\\cyber-security-3_video-stats.csv",header = TRUE)
+y4=read.csv("8631proj\\data\\cyber-security-4_video-stats.csv",header = TRUE)
+y5=read.csv("8631proj\\data\\cyber-security-5_video-stats.csv",header = TRUE)
+y6=read.csv("8631proj\\data\\cyber-security-6_video-stats.csv",header = TRUE)
+y7=read.csv("8631proj\\data\\cyber-security-7_video-stats.csv",header = TRUE)
 
 #split bar plot showing how videos break down by percentage watched
 #this is probably the best plot to show how a video has "performed" overall
