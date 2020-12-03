@@ -24,8 +24,8 @@ ggplot(data=cont, aes(x=continent, y=views)) + geom_bar(stat="identity", fill="s
 #difference between Europeans and non Europeans in terms of using the different videos?
 noneurope = oce+asia+NorthAm+SouthAm+africa
 values = c(europe, noneurope)
-video = c(rep("1.1",2),rep("1.14",2),rep("1.17",2),rep("1.19",2),rep("1.5",2),rep("2.1",2),rep("2.11",2),rep("2.17",2),rep("2.4",2),rep("3.1",2),rep("3.14",2),rep("3.15",2),rep("3.2",2))
-european = rep(c("Europe","Non-European"),13)
+video = rep(c("1.1","1.14","1.17","1.19","1.5","2.1","2.11","2.17","2.4","3.1","3.14","3.15","3.2"),2)
+european = c(rep("Europe",13),rep("Non-European",13))
 dat = data.frame(video,european,values)
 ggplot(dat, aes(fill=video, y=values, x=european)) + 
   geom_bar(position="dodge", stat="identity") + labs(x="Continent",y="Views") + labs(fill = "Video")

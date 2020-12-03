@@ -134,7 +134,11 @@ labe = c("5%","10%","25%","50%","75%","95%","100%")
                     "50%"=a50p,"75%"=a75p,"95%"=a95p,"100%"=a100p))
 ```
 
+We see a similar decreasing pattern as with the percentages, but here we see the actual effect on the views.
+
+
 Now in order to plot we form another data frame for the grouped bar plot. Again, this is done with exactly the same code as before so is omitted.
+
 ```{r include = FALSE}
 year = c(rep("year 3",7),rep("year 4",7),rep("year 5",7),
          rep("year 6",7),rep("year 7",7))
@@ -154,7 +158,7 @@ ggplot(datas, aes(fill=perwatched, y=values, x=year)) +
 ```
 
 Here we can see a more overall picture of what is happening across the years. It is reflective of the situation of enrolements, which fall from 3544 in year 5 to 2342 in year 7. When you take this into account, the apparent decrease in overall views is probably expected. We see the same pattern as we saw with the overall percentages, the decreasing trend across years as students continue to lose interest the further they get into the video.
-
+As a tool to compare across the years this plot is less useful than the percentage of views plot, as the years have a different number of students enrolled. This will obviously have an effect on the number of views the videos get.
 
 
 # Video comparison
@@ -162,7 +166,7 @@ Here we can see a more overall picture of what is happening across the years. It
 Comparing between the videos presents an interesting discussion about the use of the two plots I have looked at so far. When comparing across years, we are less interested in total views and more looking for trends, and this meant that the percentage graph was of more use to us to fairly compare the years. This is because here I am mainly interested in looking at the video stats, rather than enrolement numbers which define the total view graph.
 However I think its fair to say the opposite is true when we are looking to compare across videos. The percentage graph will be helpful to see if there is any particular trend with an individual video, but the total views graph should help to paint a picture of how much a video is watched.
 
-First, lets take a step back and simply look at across all the years how many views each video got. 
+First, lets take a step back and simply look at across all the years how many views each video got. This is a simpler undertaking, we just take the values and sum them from each year for each video, then set up our data frame and plot. With a simple bar plot, we don't need to bother with the different levels that we needed for the grouped bar plot. Essentially, this code is more concise and easier to understand.
 
 ```{r}
 views = rep(NULL,13)
@@ -196,7 +200,14 @@ for (i in 1:13)
   }
   val = append(val,temp)
 }
+```
 
+In this chunk I've iterated through each video and within that each percentage watched threshold, calculating the number of views for each video that passed each threshold. In the earlier part of my analysis where I compared across years I presented this part in a readable data frame output. However, we have a lot of data to represent here so I've skipped straight to plotting it. Hence why the data is actually stored in one long vector rather than separate ones.
+
+
+You'll hopefully recognise at least the structure of the following code by now. We are setting up a data frame for a grouped bar plot, building it very long so that the plot knows about the two x elements of every y. We group the percentage watched thresholds by video and plot.
+
+```{r}
 videos = c(rep("1.1",7),rep("1.14",7),rep("1.17",7),rep("1.19",7),
            rep("1.5",7),rep("2.1",7),rep("2.11",7),rep("2.17",7),rep("2.4",7),
            rep("3.1",7),rep("3.14",7),rep("3.15",7),rep("3.2",7))
@@ -212,9 +223,12 @@ ggplot(datas, aes(fill=perwatched, y=values, x=videos)) +
   labs(fill = "% watched")
 ```
 
-When we looked at the years comparison plot, it was dependent on enrolements which varied year by year. When comparing across videos however, we are not bound by this and we can see some interesting things.
 
-Next lets look at the percentages plot.
+When we looked at the years comparison plot, it was dependent on enrolements which varied year by year. When comparing across videos however, we are not bound by this and we can see some interesting things. We see a familiar pattern across the board in terms of the general decreas in viewers watching further into the video. However what is most interesting to me in this plot is the degree to which this occurs in each video, with many exhibiting fairly distinct behaviour.
+Take for example 3.14. The videos in the same champer all represent our typical gradual decline from 5% to 100%. 3.14 however displays an incredibly large drop from 95% to 100% watched, indicating something must have cause students to not watch until the end of that video. 1.17 has a similar behviour, whereas 2.17 and 2.1 is remarkably flat in terms of their shape, meaning they managed to retain many more of those who watched only 5% of the video to the end in comparison with others.
+We discussed how 1.5 is the video that is most popular when we discount the welcome 1.1 video, and the trend it displays is very interesting too. More than in most other videos, it loses viewers from the 5% to 50% threshold. 
+
+In order to gain a closer of understanding of the behaviour of the data around the videos across the years, we plot the percentage of views across videos.
 
 ```{r}
 temp = rep(NULL,7)
@@ -242,7 +256,8 @@ ggplot(datas, aes(fill=perwatched, y=values, x=videos)) +
   labs(x="Video",y="% of views") + 
   labs(fill = "% watched")
 ```
-This accentuates the pattern we saw above.
+
+This accentuates the patterns we saw in the previous plot. 3.14 loses almost 20% of its audience that watched 95% of the video before the end. Considering most videos aren't losing that proportion of its audience across the whole video, this further reinforces the implication that something in that video is making users not watch the last 5% of the video.
 
 
 ## Effect of duration
@@ -262,12 +277,16 @@ ggplot(data=viewdf, aes(x=duration,y=views)) + geom_point(size=3,colour="steelbl
   geom_text(label=viewdf$video,nudge_y = 200)
 ```
 
-This has been done as an addition to the data frame we used for the simple bar plot of videos against views. Here we can see that there's no real overall pattern to the plot.
+This has been done as an addition to the data frame we used for the simple bar plot of videos against views. Here we can see that there's no real overall pattern to the plot, so we cant really say anything about duration having an effect on viewership of videos.
 
+
+When we observe this in conjunction with the analysis we've conducted before on the videos, we can pull out some interesting ideas.
+The cluster in the bottom left of the plot represents the shortest videos that are getting a slightly less than average amount of viewers. When we go back and look at the pattern of their viewers engagement, we see that these are the videos with probably the least viewers lost throughout the video. This is insufficient evidence to make any sort of conclusion about shorter videos keeping their audience, as we haven't accounted for the possiblity that less viewed videos have a more committed audience.
+We can see that the longest video, 2.4, has about average views and a normal pattern to viewership engagement. In fact most of the longer videos show the more linear decline in viewers as the videos go on.
 
 # Region analysis
 
-Here I'll investigate the habits of users from different continents when watching videos. First, we'll just have a look at which continents make up for the different shares of views.
+Here I'll investigate the habits of users from different continents when watching videos. First, we'll just have a look at which continents make up for the different shares of views. These figures are pulled from each of the year files and are calculated in a similar fashion as before.
 
 ```{r}
 europe = (y3[[22]]/100)*y3[[4]] + (y4[[22]]/100)*y4[[4]] + (y5[[22]]/100)*y5[[4]] + 
@@ -284,7 +303,7 @@ africa = (y3[[27]]/100)*y3[[4]] + (y4[[27]]/100)*y4[[4]] + (y5[[27]]/100)*y5[[4]
   (y6[[27]]/100)*y6[[4]] + (y7[[27]]/100)*y7[[4]]
 ```
 
-These vectors calculate the share each region has of the total views of each video. This will be useful for the plot we do after this. For now, we need to sum these to get our region plot.
+These vectors calculate the share each region has of the total views of each video. This will be useful for the next plot we do after this. For now, we need to sum these to get our region bar plot.
 
 ```{r}
 values = c(sum(europe),sum(oce),sum(asia),sum(NorthAm),sum(SouthAm),sum(africa))
@@ -296,24 +315,23 @@ ggplot(data=cont, aes(x=continent, y=views)) +
   labs(x="Continent",y="Views")
 ```
 
-Europe clearly dominates the overall views since the course has been collecting video stats, as you would expect.
+Europe clearly dominates the overall views since the course has been collecting video stats, as you would expect from briefly investigating the enrolement numbers. The next most popular continents of Asia, North America and Africa are also not surprising.
 
-To further investigate, let's look into if there are differences bewtween videos in terms of where the views are coming from. Here I am going to simplify our continents into "European" and "Non-European", for a simpler analysis.
+To further investigate, let's look into if there are differences bewtween videos in terms of where the views are coming from. Here I am going to simplify our continents into "European" and "Non-European", just to simplify our comparisons. It turns out that these groups roughly represent about half of total video views each. Therefore we total up all of the rest of the continents into one vector and create a grouped bar plot to represent how these two differing groups engage with each video.
 
 ```{r}
 noneurope = oce+asia+NorthAm+SouthAm+africa
 values = c(europe, noneurope)
-video = c(rep("1.1",2),rep("1.14",2),rep("1.17",2),rep("1.19",2),rep("1.5",2),
-          rep("2.1",2),rep("2.11",2),rep("2.17",2),rep("2.4",2),rep("3.1",2),
-          rep("3.14",2),rep("3.15",2),rep("3.2",2))
-european = rep(c("Europe","Non-European"),13)
+video = rep(c("1.1","1.14","1.17","1.19","1.5","2.1","2.11",
+              "2.17","2.4","3.1","3.14","3.15","3.2"),2)
+european = c(rep("Europe",13),rep("Non-European",13))
 dat = data.frame(video,european,values)
 ggplot(dat, aes(fill=video, y=values, x=european)) + 
   geom_bar(position="dodge", stat="identity") + labs(x="Continent",y="Views") + 
   labs(fill = "Video")
 ```
 
-This plot helps us to separate the trends of the European students and Non-European students, and they paint quite different pictures.
+This plot helps us to separate the trends of the European students and Non-European students.
 
 ```{r}
 ggplot(dat, aes(fill=european, y=values, x=video)) + 
