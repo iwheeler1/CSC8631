@@ -34,3 +34,8 @@ ggplot(dat, aes(fill=video, y=values, x=european)) +
 #stacked bar
 ggplot(dat, aes(fill=european, y=values, x=video)) + 
   geom_bar(position="stack", stat="identity") + labs(x="Video",y="Views") + labs(fill = "Continent")
+
+#stacked percentage bar
+ggplot(dat, aes(fill=european, y=values, x=video)) + 
+  geom_bar(position="fill", stat="identity") + labs(x="Video",y="Views") + 
+  labs(fill = "Continent")

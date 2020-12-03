@@ -317,7 +317,7 @@ ggplot(data=cont, aes(x=continent, y=views)) +
 
 Europe clearly dominates the overall views since the course has been collecting video stats, as you would expect from briefly investigating the enrolement numbers. The next most popular continents of Asia, North America and Africa are also not surprising.
 
-To further investigate, let's look into if there are differences bewtween videos in terms of where the views are coming from. Here I am going to simplify our continents into "European" and "Non-European", just to simplify our comparisons. It turns out that these groups roughly represent about half of total video views each. Therefore we total up all of the rest of the continents into one vector and create a grouped bar plot to represent how these two differing groups engage with each video.
+To further investigate, let's look into if there are differences bewtween videos in terms of where the views are coming from. Here I am going to simplify our continents into "European" and "Non-European", just to simplify our comparisons. It turns out that these groups roughly represent about a 60:40 split of the total views (Europe represents 58% = 23680 views, Non European represents 42% = 17165). Therefore we total up all of the rest of the continents into one vector and create a grouped bar plot to represent how these two differing groups engage with each video.
 
 ```{r}
 noneurope = oce+asia+NorthAm+SouthAm+africa
@@ -331,7 +331,9 @@ ggplot(dat, aes(fill=video, y=values, x=european)) +
   labs(fill = "Video")
 ```
 
-This plot helps us to separate the trends of the European students and Non-European students.
+This plot helps us to separate the trends of the European students and Non-European students. We can see a fairly similar pattern between the groups, with a few noticeable differences. Non-Europeans responsible for a larger proportion of the inital 1.1 welcome video views, and in general less for the other videos. European students comparatively are viewing the welcome video less, but in general engaging with the other videos more.
+
+To further investigate this, we can look at this as a stacked bar plot of the video views.
 
 ```{r}
 ggplot(dat, aes(fill=european, y=values, x=video)) + 
@@ -339,4 +341,13 @@ ggplot(dat, aes(fill=european, y=values, x=video)) +
   labs(fill = "Continent")
 ```
 
-This plot allows us to get the picture when focussing more on individual videos.
+This plot allows us to get the picture when focussing more on individual video views.
+We can also plot the stacked percentage plot to see a comparative effect.
+
+```{r}
+ggplot(dat, aes(fill=european, y=values, x=video)) + 
+  geom_bar(position="fill", stat="identity") + labs(x="Video",y="Views") + 
+  labs(fill = "Continent")
+```
+
+This shows us without doubt that the Europeans dominate the views of most videos, but in a video like 1.5, Non Europeans make up 45% of views which is slightly more than their overall share of video views.
