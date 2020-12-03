@@ -7,11 +7,281 @@ output: pdf_document
 In this project, I am going to be providing some analysis of the video stats data; asking a few different questions and trying to find any sort of pattern within these. Video stats are only provided for years 3-7 so this is where the my analysis will be based upon.
 
 ```{r include = false}
-year3=read.csv("C:\\Users\\Isaac\\OneDrive\\Documents\\CSC8631\\8631proj\\data\\cyber-security-3_video-stats.csv",header = TRUE)
-year4=read.csv("C:\\Users\\Isaac\\OneDrive\\Documents\\CSC8631\\8631proj\\data\\cyber-security-4_video-stats.csv",header = TRUE)
-year5=read.csv("C:\\Users\\Isaac\\OneDrive\\Documents\\CSC8631\\8631proj\\data\\cyber-security-5_video-stats.csv",header = TRUE)
-year6=read.csv("C:\\Users\\Isaac\\OneDrive\\Documents\\CSC8631\\8631proj\\data\\cyber-security-6_video-stats.csv",header = TRUE)
-year7=read.csv("C:\\Users\\Isaac\\OneDrive\\Documents\\CSC8631\\8631proj\\data\\cyber-security-7_video-stats.csv",header = TRUE)
+library(ggplot2)
+y3=read.csv("C:\\Users\\Isaac\\OneDrive\\Documents\\CSC8631\\8631proj\\data\\cyber-security-3_video-stats.csv",header = TRUE)
+y4=read.csv("C:\\Users\\Isaac\\OneDrive\\Documents\\CSC8631\\8631proj\\data\\cyber-security-4_video-stats.csv",header = TRUE)
+y5=read.csv("C:\\Users\\Isaac\\OneDrive\\Documents\\CSC8631\\8631proj\\data\\cyber-security-5_video-stats.csv",header = TRUE)
+y6=read.csv("C:\\Users\\Isaac\\OneDrive\\Documents\\CSC8631\\8631proj\\data\\cyber-security-6_video-stats.csv",header = TRUE)
+y7=read.csv("C:\\Users\\Isaac\\OneDrive\\Documents\\CSC8631\\8631proj\\data\\cyber-security-7_video-stats.csv",header = TRUE)
 ```
 
-The first question I am going to investigate is if there is any significant differences between years in terms of engagement with the videos. This will be done by looking into how much of the intake watched up to different percentages of the video.
+#Video engagement across years
+##Watch percentages
+
+The first question I investigated is if there is any significant differences between years in terms of engagement with the videos. This was by done by looking into how the percentage watched (up to different percentages of the video) changed, if at all, across the years.
+
+In order to do this, I knocked up a quick function that would work out across all the videos the average percentage of views that made it to differing thresholds of the video. These thresholds were 5%, 10%, 25%, 50%, 75%, 95% and 100%, and the data were all provided in the video stats csv files.
+
+```{r}
+helper.avgper <- function(y)
+{
+  temp = rep(NULL,7)
+  for (i in 9:15)
+  {
+    temp[i-8] = sum(y[i])/13
+  }
+  return(temp)
+}
+```
+
+This simple helper function will, when provided with a video stats file of the same format, work out the average percentages watched for the year, and return it as a vector. This function can be found in the helpers file of the repository, along with one other that we're going to use later. 
+
+So to carry out the analysis, we simply need to run the function for all of our years and then plot it.
+
+```{r}
+y3a=helper.avgper(y3)
+y4a=helper.avgper(y4)
+y5a=helper.avgper(y5)
+y6a=helper.avgper(y6)
+y7a=helper.avgper(y7)
+```
+
+We store each vector on its own. For the benefit of readability alone I will put this all into a dataframe also.
+```{r}
+a5p = c(y3a[1],y4a[1],y5a[1],y6a[1],y7a[1])
+a10p = c(y3a[2],y4a[2],y5a[2],y6a[2],y7a[2])
+a25p = c(y3a[3],y4a[3],y5a[3],y6a[3],y7a[3])
+a50p = c(y3a[4],y4a[4],y5a[4],y6a[4],y7a[4])
+a75p = c(y3a[5],y4a[5],y5a[5],y6a[5],y7a[5])
+a95p = c(y3a[6],y4a[6],y5a[6],y6a[6],y7a[6])
+a100p = c(y3a[7],y4a[7],y5a[7],y6a[7],y7a[7])
+
+labe = c("5%","10%","25%","50%","75%","95%","100%")
+(viddf = data.frame(year=3:7,"5%"=a5p,"10%"=a10p,"25%"=a25p,"50%"=a50p,"75%"=a75p,"95%"=a95p,"100%"=a100p))
+```
+There are some interesting things to draw already from this data. Year five was a good year for video engagement in terms of overall percentages, whereas year four was actually the worst. We can also see that even for the most engaged years, almost 20% of video views do not even get 5% into the video. Further, there is a conistent dropoff of views that overall means videos lose about 15-20% of the views as the video goes on to the finish.
+In order to visualise this fully, we're going to want to plot our data. Notice how I pointed out that the reason for the above dataframe was readibility alone; we are going to use something else for our plot.
+GGplot requires that you use a data frame when you plot data, so why do we need another data frame when we've got a perfectly good one sitting around already. Three words; grouped bar plot.
+
+```{r}
+year = c(rep("year 3",7),rep("year 4",7),rep("year 5",7),rep("year 6",7),rep("year 7",7))
+perwatched = rep(c("5%","10%","25%","50%","75%","95%","100%"),5)
+values = c(y3a,y4a,y5a,y6a,y7a)
+(datas = data.frame(year,perwatched,values))
+datas$perwatched = factor(datas$perwatched, levels=c("5%","10%","25%","50%","75%","95%","100%"))
+```
+Let's explain whats going on here. In order for GGplot to get the grouped bar plot to work, it needs to know effectively two x elements of each y. Here, the year part of this data frame is the group that the each observation is a part of, and the perwatched is identifying our percentage watched.
+The two dataframes are essentially the same thing, just the second one is very long and not easily readable. However, it enables us to plot a grouped bar plot that allows us to easily visualise the differences in year.
+
+```{r}
+ggplot(datas, aes(fill=perwatched, y=values, x=year)) + 
+  geom_bar(position="dodge", stat="identity") + labs(x="Year",y="% of views") + labs(fill = "% watched")
+```
+This is a very useful plot for our comparison. We can clearly see that although there are slight differences in the percentages across the years, the trend is a very similar one. There is generally a consistent drop in viewers as the video goes on. The most significant drops certainly are from 95% watched to 100% watched, showing that a decent group of students will watch most of the video, but tune out before watching it all. This could possibly indicate that the videos could be slightly shortened. Youtube analyics suggest that in a given video it is normal to see a gradual decline in audience engagement as a video goes on, but sharper decreases like at the end of this video suggest that the something in the video is causing many viewers to stop watching. Source: https://creatoracademy.youtube.com/page/lesson/engagement-analytics?cid=analytics-series&hl=en#strategies-zippy-link-1
+
+
+##Overall views
+
+The analysis that looks simply at the overall percentages for a year is all well and good, but unfortunately in this course not all videos or years were created equal. There are big differences between years in terms of number of students enrolled, and differences between videos in terms of the number of views on each video.
+Comparisons between videos will be tackled in the next part of this report, but for now lets stay on video engagement across the years.
+
+The percentage analysis we've done thusfar was good for investigating if there was a trend across years as it put all the years on a level playing field for comparison. But, to repeat myself, *not all years are created equal*. To see the overall picture in terms of total views, I needed to alter the calculation I was making for the percentage views. The benefit of my approach for the first part is that we can essentially reproduce the analysis we just did for the percentages, but simply alter our calculations to work out views rather than percentages of views.
+
+This was done by making another helper function, almost identical to the avgper one used previously.
+
+```{r}
+helper.avgview <- function(y)
+{
+  temp = rep(NULL,7)
+  for (i in 9:15)
+  {
+    temp[i-8] = sum((y[i]/100)*y[4])/13
+  }
+  return(temp)
+}
+```
+
+Avgview simply does the same calculation but using the total views we can work out how many views crossed each threshold per year. We now simply use this function to get our vectors of views.
+
+```{r}
+y3a=helper.avgview(y3)
+y4a=helper.avgview(y4)
+y5a=helper.avgview(y5)
+y6a=helper.avgview(y6)
+y7a=helper.avgview(y7)
+```
+
+We can form the data frame again for readability. This uses the same code as before when forming the data frame so most of it has been ommited for brevity.
+
+```{r include = FALSE}
+a5p = c(y3a[1],y4a[1],y5a[1],y6a[1],y7a[1])
+a10p = c(y3a[2],y4a[2],y5a[2],y6a[2],y7a[2])
+a25p = c(y3a[3],y4a[3],y5a[3],y6a[3],y7a[3])
+a50p = c(y3a[4],y4a[4],y5a[4],y6a[4],y7a[4])
+a75p = c(y3a[5],y4a[5],y5a[5],y6a[5],y7a[5])
+a95p = c(y3a[6],y4a[6],y5a[6],y6a[6],y7a[6])
+a100p = c(y3a[7],y4a[7],y5a[7],y6a[7],y7a[7])
+
+labe = c("5%","10%","25%","50%","75%","95%","100%")
+```
+
+```{r}
+(viddf = data.frame(year=3:7,"5%"=a5p,"10%"=a10p,"25%"=a25p,"50%"=a50p,"75%"=a75p,"95%"=a95p,"100%"=a100p))
+```
+
+Now in order to plot we form another data frame for the grouped bar plot. Again, this is done with exactly the same code as before so is omitted.
+```{r include = FALSE}
+year = c(rep("year 3",7),rep("year 4",7),rep("year 5",7),rep("year 6",7),rep("year 7",7))
+perwatched = rep(c("5%","10%","25%","50%","75%","95%","100%"),5)
+values = c(y3a,y4a,y5a,y6a,y7a)
+datas = data.frame(year,perwatched,values)
+datas$perwatched = factor(datas$perwatched, levels=c("5%","10%","25%","50%","75%","95%","100%"))
+```
+
+Once this is done, we plot our data.
+
+```{r}
+ggplot(datas, aes(fill=perwatched, y=values, x=year)) + 
+  geom_bar(position="dodge", stat="identity") + labs(x="Year",y="Views") + labs(fill = "% watched")
+```
+
+Here we can see a more overall picture of what is happening across the years. It is reflective of the situation of enrolements, which fall from 3544 in year 5 to 2342 in year 7. When you take this into account, the apparent decrease in overall views is probably expected. We see the same pattern as we saw with the overall percentages, the decreasing trend across years as students continue to lose interest the further they get into the video.
+
+
+
+#Video comparison
+
+Comparing between the videos presents an interesting discussion about the use of the two plots I have looked at so far. When comparing across years, we are less interested in total views and more looking for trends, and this meant that the percentage graph was of more use to us to fairly compare the years. This is because here I am mainly interested in looking at the video stats, rather than enrolement numbers which define the total view graph.
+However I think its fair to say the opposite is true when we are looking to compare across videos. The percentage graph will be helpful to see if there is any particular trend with an individual video, but the total views graph should help to paint a picture of how much a video is watched.
+
+First, lets take a step back and simply look at across all the years how many views each video got. 
+
+```{r}
+views = rep(NULL,13)
+for (j in 1:13)
+{
+  views[j] = y3[j,4] + y4[j,4] + y5[j,4] + y6[j,4] + y7[j,4]
+}
+v = c("1.1","1.14","1.17","1.19","1.5","2.1","2.11","2.17","2.4","3.1","3.14","3.15","3.2")
+viewdf = data.frame(video=v, views=views)
+ggplot(data=viewdf, aes(x=video, y=views)) + geom_bar(stat="identity", fill="steelblue") + labs(x="Video",y="Views")
+```
+
+Here we can see that as would be expected, the first video "Welcome" is far and away the most viewed video. There is a sharp decrease to the next video, with the only other video that gets close in terms of views being video 1.5 "Privacy online and offline". There is a clear tail off towards the end of the course, but it seems that it levels out towards the very end. This is a trend that is often evidenced in many modules of undergraduate maths lecture attendence to my own experience.
+
+
+Lets break this down with our percentage watched thresholds. This time we'll first consider the total views first.
+
+```{r}
+temp = rep(NULL,7)
+val = c()
+for (i in 1:13)
+{
+  for (p in 1:7)
+  {
+    temp[p] = (y3[i,p+8]/100)*y3[i,4] + (y4[i,p+8]/100)*y4[i,4] + (y5[i,p+8]/100)*y5[i,4] + (y6[i,p+8]/100)*y6[i,4] + (y7[i,p+8]/100)*y7[i,4]
+  }
+  val = append(val,temp)
+}
+
+videos = c(rep("1.1",7),rep("1.14",7),rep("1.17",7),rep("1.19",7),rep("1.5",7),rep("2.1",7),rep("2.11",7),rep("2.17",7),rep("2.4",7),rep("3.1",7),rep("3.14",7),rep("3.15",7),rep("3.2",7))
+perwatched = rep(c("5%","10%","25%","50%","75%","95%","100%"),13)
+values = val
+datas = data.frame(videos,perwatched,values)
+datas$perwatched = factor(datas$perwatched, levels=c("5%","10%","25%","50%","75%","95%","100%"))
+
+ggplot(datas, aes(fill=perwatched, y=values, x=videos)) + 
+  geom_bar(position="dodge", stat="identity") + labs(x="Video",y="Views") + labs(fill = "% watched")
+```
+
+When we looked at the years comparison plot, it was dependent on enrolements which varied year by year. When comparing across videos however, we are not bound by this and we can see some interesting things.
+
+Next lets look at the percentages plot.
+
+```{r}
+temp = rep(NULL,7)
+val = c()
+for (i in 1:13)
+{
+  for (p in 1:7)
+  {
+    temp[p] = (y3[i,p+8] + y4[i,p+8] + y5[i,p+8] + y6[i,p+8] + y7[i,p+8])/5
+  }
+  val = append(val,temp)
+}
+
+videos = c(rep("1.1",7),rep("1.14",7),rep("1.17",7),rep("1.19",7),rep("1.5",7),rep("2.1",7),rep("2.11",7),rep("2.17",7),rep("2.4",7),rep("3.1",7),rep("3.14",7),rep("3.15",7),rep("3.2",7))
+perwatched = rep(c("5%","10%","25%","50%","75%","95%","100%"),13)
+values = val
+datas = data.frame(videos,perwatched,values)
+datas$perwatched = factor(datas$perwatched, levels=c("5%","10%","25%","50%","75%","95%","100%"))
+
+ggplot(datas, aes(fill=perwatched, y=values, x=videos)) + 
+  geom_bar(position="dodge", stat="identity") + labs(x="Video",y="% of views") + labs(fill = "% watched")
+```
+This accentuates the pattern we saw above.
+
+
+##Effect of duration
+Its a reasonable question to ask if duration is having an effect on the watchability of a video, as intuitively, longer videos may require more engagement.
+To investigate this, we'll use a scatter plot.
+
+```{r}
+duration = rep(NULL,13)
+for (q in 1:13)
+{
+  #duration of videos is the same across years3-7
+  duration[q] = y3[q,3]
+}
+viewdf$duration = duration
+
+ggplot(data=viewdf, aes(x=duration,y=views)) + geom_point(size=3,colour="steelblue") + geom_text(label=viewdf$video,nudge_y = 200)
+```
+
+This has been done as an addition to the data frame we used for the simple bar plot of videos against views. Here we can see that there's no real overall pattern to the plot.
+
+
+#Region analysis
+
+Here I'll investigate the habits of users from different continents when watching videos. First, we'll just have a look at which continents make up for the different shares of views.
+
+```{r}
+europe = (y3[[22]]/100)*y3[[4]] + (y4[[22]]/100)*y4[[4]] + (y5[[22]]/100)*y5[[4]] + (y6[[22]]/100)*y6[[4]] + (y7[[22]]/100)*y7[[4]]
+oce = (y3[[23]]/100)*y3[[4]] + (y4[[23]]/100)*y4[[4]] + (y5[[23]]/100)*y5[[4]] + (y6[[23]]/100)*y6[[4]] + (y7[[23]]/100)*y7[[4]]
+asia = (y3[[24]]/100)*y3[[4]] + (y4[[24]]/100)*y4[[4]] + (y5[[24]]/100)*y5[[4]] + (y6[[24]]/100)*y6[[4]] + (y7[[24]]/100)*y7[[4]]
+NorthAm = (y3[[25]]/100)*y3[[4]] + (y4[[25]]/100)*y4[[4]] + (y5[[25]]/100)*y5[[4]] + (y6[[25]]/100)*y6[[4]] + (y7[[25]]/100)*y7[[4]]
+SouthAm = (y3[[26]]/100)*y3[[4]] + (y4[[26]]/100)*y4[[4]] + (y5[[26]]/100)*y5[[4]] + (y6[[26]]/100)*y6[[4]] + (y7[[26]]/100)*y7[[4]]
+africa = (y3[[27]]/100)*y3[[4]] + (y4[[27]]/100)*y4[[4]] + (y5[[27]]/100)*y5[[4]] + (y6[[27]]/100)*y6[[4]] + (y7[[27]]/100)*y7[[4]]
+```
+
+These vectors calculate the share each region has of the total views of each video. This will be useful for the plot we do after this. For now, we need to sum these to get our region plot.
+
+```{r}
+values = c(sum(europe),sum(oce),sum(asia),sum(NorthAm),sum(SouthAm),sum(africa))
+continents = c("Europe", "Oceania", "Asia", "North America", "South America", "Africa")
+cont = data.frame(continent = continents, views = values)
+ggplot(data=cont, aes(x=continent, y=views)) + geom_bar(stat="identity", fill="steelblue") + labs(x="Continent",y="Views")
+```
+
+Europe clearly dominates the overall views since the course has been collecting video stats, as you would expect.
+
+To further investigate, let's look into if there are differences bewtween videos in terms of where the views are coming from. Here I am going to simplify our continents into "European" and "Non-European", for a simpler analysis.
+
+```{r}
+noneurope = oce+asia+NorthAm+SouthAm+africa
+values = c(europe, noneurope)
+video = c(rep("1.1",2),rep("1.14",2),rep("1.17",2),rep("1.19",2),rep("1.5",2),rep("2.1",2),rep("2.11",2),rep("2.17",2),rep("2.4",2),rep("3.1",2),rep("3.14",2),rep("3.15",2),rep("3.2",2))
+european = rep(c("Europe","Non-European"),13)
+dat = data.frame(video,european,values)
+ggplot(dat, aes(fill=video, y=values, x=european)) + 
+  geom_bar(position="dodge", stat="identity") + labs(x="Continent",y="Views") + labs(fill = "Video")
+```
+
+This plot helps us to separate the trends of the European students and Non-European students, and they paint quite different pictures.
+
+```{r}
+ggplot(dat, aes(fill=european, y=values, x=video)) + 
+  geom_bar(position="stack", stat="identity") + labs(x="Video",y="Views") + labs(fill = "Continent")
+```
+
+This plot allows us to get the picture when focussing more on individual videos.
