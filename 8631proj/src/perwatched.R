@@ -7,7 +7,7 @@ y6=read.csv("8631proj\\data\\cyber-security-6_video-stats.csv",header = TRUE)
 y7=read.csv("8631proj\\data\\cyber-security-7_video-stats.csv",header = TRUE)
 
 #loop that calculates average percentage watched across the videos
-source("C:\\Users\\Isaac\\OneDrive\\Documents\\CSC8631\\8631proj\\lib\\helpers.R")
+source("8631proj\\lib\\helpers.R")
 #calculate the averages for all the percentages for each year
 y3a=helper.avgview(y3)
 y4a=helper.avgview(y4)
