@@ -366,9 +366,9 @@ ggplot(dat, aes(fill=european, y=values, x=video)) +
   labs(fill = "Continent")
 ```
 
-This shows us without doubt that the Europeans dominate the views of most videos, but in a video like 1.5, Non Europeans make up 45% of views which is slightly more than their overall share of video views. What we can draw from this is that Non-Europeans are much more likely to watch the 1.1 welcome video, but from there the mix is fairly balanced in terms of views compared against number of enrolements.
+This shows us without doubt that the Europeans dominate the views of most videos, but in a video like 1.5, Non Europeans make up 45% of views which is slightly more than their overall share of video views. What we can draw from this is that Non-Europeans are much more likely to watch the 1.1 welcome video, but from there the mix is fairly balanced in terms of views compared against number of enrollments.
 
-Overall we can see from the regional analysis that video views are dominated by the European students due to them being the most represented group in the enrolements. Certain videos are more viewed by Non-European students, but generally videos are engaged with proportionally across the board. Therefore we have no big evaluation to take from this part, but it is interesting to investigate how different groups interacted. This can also serve as a basis to dig deeper into comparing regional groups.
+Overall we can see from the regional analysis that video views are dominated by the European students due to them being the most represented group in the enrollments. Certain videos are more viewed by Non-European students, but generally videos are engaged with proportionally across the board. Therefore we have no big evaluation to take from this part, but it is interesting to investigate how different groups interacted. This can also serve as a basis to dig deeper into comparing regional groups.
 
 
 # Conclusion 
