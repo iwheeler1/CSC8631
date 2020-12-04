@@ -137,7 +137,7 @@ labe = c("5%","10%","25%","50%","75%","95%","100%")
                     "50%"=a50p,"75%"=a75p,"95%"=a95p,"100%"=a100p))
 ```
 
-We see a similar decreasing pattern as with the percentages, but here we see the actual effect on the views.
+We see a similar decreasing pattern as with the percentages, but here we see the actual effect on the views. What becomes visible is the differences between years 3-5 and 6-7 due to intake. Obviously, less students means less video views.
 
 
 Now in order to plot we form another data frame for the grouped bar plot. Again, this is done with exactly the same code as before so is omitted.
