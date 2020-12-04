@@ -164,6 +164,8 @@ Here we can see a more overall picture of what is happening across the years. It
 As a tool to compare across the years this plot is less useful than the percentage of views plot, as the years have a different number of students enrolled. This will obviously have an effect on the number of views the videos get.
 
 
+In conclusion to our comparison over years, there isn't much of a trend to be seen when you account for the differences in intakes between the years. There are slight variations in the years, but nothing major for us to make sweeping evaluations on.
+
 # Video comparison
 
 Comparing between the videos presents an interesting discussion about the use of the two plots I have looked at so far. When comparing across years, we are less interested in total views and more looking for trends, and this meant that the percentage graph was of more use to us to fairly compare the years. This is because here I am mainly interested in looking at the video stats, rather than enrollment numbers which define the total view graph.
@@ -292,6 +294,9 @@ When we observe this in conjunction with the analysis we've conducted before on 
 The cluster in the bottom left of the plot represents the shortest videos that are getting a slightly less than average amount of viewers. When we go back and look at the pattern of their viewers engagement, we see that these are the videos with probably the least viewers lost throughout the video. This is insufficient evidence to make any sort of conclusion about shorter videos keeping their audience, as we haven't accounted for the possibility that less viewed videos have a more committed audience.
 We can see that the longest video, 2.4, has about average views and a normal pattern to viewership engagement. In fact most of the longer videos show the more linear decline in viewers as the videos go on.
 
+
+Overall for the analysis comparing the videos, we see that there are some really interesting inferences to be made. Certain videos like 3.14 should definitely be looked into as there is a definite effect seen at the end of these videos that is making users switch off before the end. In fact, all the videos should be looked at with this is analysis in mind. There are some definite improvements that could be made to some videos, and examples to be made of the videos that are able to retain their audience from 5% to 100% watched.
+
 # Region analysis
 
 Here I'll investigate the habits of users from different continents when watching videos. First, we'll just have a look at which continents make up for the different shares of views. These figures are pulled from each of the year files and are calculated in a similar fashion as before.
@@ -363,4 +368,8 @@ ggplot(dat, aes(fill=european, y=values, x=video)) +
 
 This shows us without doubt that the Europeans dominate the views of most videos, but in a video like 1.5, Non Europeans make up 45% of views which is slightly more than their overall share of video views. What we can draw from this is that Non-Europeans are much more likely to watch the 1.1 welcome video, but from there the mix is fairly balanced in terms of views compared against number of enrolements.
 
-Overall we can see from the regional analysis that video views are dominated by the European students due to them being the most represented group in the enrolements. Certain videos are more viewed by Non-European students, but generally videos are engaged with proportionally across the board.
+Overall we can see from the regional analysis that video views are dominated by the European students due to them being the most represented group in the enrolements. Certain videos are more viewed by Non-European students, but generally videos are engaged with proportionally across the board. Therefore we have no big evaluation to take from this part, but it is interesting to investigate how different groups interacted. This can also serve as a basis to dig deeper into comparing regional groups.
+
+
+# Conclusion 
+To summarise, this report has covered analysis on three main parts of the video stats. Comparisons between years, comparisons between videos and comparisons between continents. The comparison between years and continents provided us with the picture we would have expected, but the comparison between videos is intriguing and definitely provokes some interesting further questions and ideas.
