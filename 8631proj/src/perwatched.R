@@ -1,14 +1,14 @@
 library(ggplot2)
-library(ProjectTemplate); load.project()
 y3=read.csv("8631proj\\data\\cyber-security-3_video-stats.csv",header = TRUE)
 y4=read.csv("8631proj\\data\\cyber-security-4_video-stats.csv",header = TRUE)
 y5=read.csv("8631proj\\data\\cyber-security-5_video-stats.csv",header = TRUE)
 y6=read.csv("8631proj\\data\\cyber-security-6_video-stats.csv",header = TRUE)
 y7=read.csv("8631proj\\data\\cyber-security-7_video-stats.csv",header = TRUE)
 
-#loop that calculates average percentage watched across the videos
+#source our helper functions so we can calculate averages
 source("8631proj\\lib\\helpers.R")
-#calculate the averages for all the percentages for each year
+#calculate the averages for all the views for each year
+#avgview returns a vector for the year, with all views getting to 5% into a video, 10% in, 25% in etc
 y3a=helper.avgview(y3)
 y4a=helper.avgview(y4)
 y5a=helper.avgview(y5)
@@ -24,24 +24,28 @@ a75p = c(y3a[5],y4a[5],y5a[5],y6a[5],y7a[5])
 a95p = c(y3a[6],y4a[6],y5a[6],y6a[6],y7a[6])
 a100p = c(y3a[7],y4a[7],y5a[7],y6a[7],y7a[7])
 
+#create the labels for the df
 labe = c("5%","10%","25%","50%","75%","95%","100%")
+#create the df
 viddf = data.frame(year=3:7,"5%"=a5p,"10%"=a10p,"25%"=a25p,"50%"=a50p,"75%"=a75p,"95%"=a95p,"100%"=a100p)
 viddf
 
-#this is done to produce the stacked bar chart showing percentage watched of videos overall
+#this is done to produce the stacked bar chart showing percentage watched of videos overall views
+#long data frame with levels, just look at the datas dataframe and it should make sense
 year = c(rep("year 3",7),rep("year 4",7),rep("year 5",7),rep("year 6",7),rep("year 7",7))
 perwatched = rep(c("5%","10%","25%","50%","75%","95%","100%"),5)
 values = c(y3a,y4a,y5a,y6a,y7a)
 datas = data.frame(year,perwatched,values)
 datas$perwatched = factor(datas$perwatched, levels=c("5%","10%","25%","50%","75%","95%","100%"))
 
-#scv
+#plot
 ggplot(datas, aes(fill=perwatched, y=values, x=year)) + 
   geom_bar(position="dodge", stat="identity") + labs(x="Year",y="Views") + labs(fill = "% watched")
 
-#talk about comparisons to enrolements here, there is a definite drop from year 5 to 6
+
 
 #if you want to just look at the percentages, use avgper
+#uses same code as before, just different values for yxa from the function
 y3a=helper.avgper(y3)
 y4a=helper.avgper(y4)
 y5a=helper.avgper(y5)
@@ -54,9 +58,5 @@ values = c(y3a,y4a,y5a,y6a,y7a)
 datas = data.frame(year,perwatched,values)
 datas$perwatched = factor(datas$perwatched, levels=c("5%","10%","25%","50%","75%","95%","100%"))
 
-#scv
 ggplot(datas, aes(fill=perwatched, y=values, x=year)) + 
   geom_bar(position="dodge", stat="identity") + labs(x="Year",y="% of views") + labs(fill = "% watched")
-
-#next things to do
-#compare devices

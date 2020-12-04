@@ -1,5 +1,4 @@
 library(ggplot2)
-library(ProjectTemplate); load.project()
 y3=read.csv("8631proj\\data\\cyber-security-3_video-stats.csv",header = TRUE)
 y4=read.csv("8631proj\\data\\cyber-security-4_video-stats.csv",header = TRUE)
 y5=read.csv("8631proj\\data\\cyber-security-5_video-stats.csv",header = TRUE)
@@ -7,6 +6,9 @@ y6=read.csv("8631proj\\data\\cyber-security-6_video-stats.csv",header = TRUE)
 y7=read.csv("8631proj\\data\\cyber-security-7_video-stats.csv",header = TRUE)
 
 #continental simple
+#the continent %s are in columns 22 to 27
+#performing the same calculations for total views as before
+#just this time we're using the continent %s rather than viewed %s
 europe = (y3[[22]]/100)*y3[[4]] + (y4[[22]]/100)*y4[[4]] + (y5[[22]]/100)*y5[[4]] + (y6[[22]]/100)*y6[[4]] + (y7[[22]]/100)*y7[[4]]
 oce = (y3[[23]]/100)*y3[[4]] + (y4[[23]]/100)*y4[[4]] + (y5[[23]]/100)*y5[[4]] + (y6[[23]]/100)*y6[[4]] + (y7[[23]]/100)*y7[[4]]
 asia = (y3[[24]]/100)*y3[[4]] + (y4[[24]]/100)*y4[[4]] + (y5[[24]]/100)*y5[[4]] + (y6[[24]]/100)*y6[[4]] + (y7[[24]]/100)*y7[[4]]

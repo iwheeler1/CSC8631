@@ -1,10 +1,13 @@
 ---
-title: "8631 report"
+title: "CSC8631 report"
 author: "Isaac Wheeler"
 date: "26/11/2020"
 output: pdf_document
 ---
-In this project, I am going to be providing some analysis of the video stats data; asking a few different questions and trying to find any sort of pattern within these. Video stats are only provided for years 3-7 so this is where the my analysis will be based upon.
+In this project, I am going to be providing some analysis of the video stats data; asking a few different questions and trying to find any sort of pattern within these. Video stats are only provided for years 3-7 so this is where the my analysis will be based upon. As mentioned in the executive summary, the data in these files is already in a very usable state. As such, data preparation takes place before I make different parts of my analysis and are included in the code chunks and briefly explained.
+
+
+This report takes the form of asking a few questions about the data. I'll indicate what I am looking into, prepare the data to analyse, plot and analyse, before evaluating in conjunction with my understanding of what the client is looking for in the data.
 
 ```{r include = FALSE}
 library(ggplot2)
@@ -172,6 +175,7 @@ First, lets take a step back and simply look at across all the years how many vi
 views = rep(NULL,13)
 for (j in 1:13)
 {
+  #for video with row index j, get the total views (column 4) and add them up
   views[j] = y3[j,4] + y4[j,4] + y5[j,4] + y6[j,4] + y7[j,4]
 }
 v = c("1.1","1.14","1.17","1.19","1.5","2.1","2.11",
@@ -190,10 +194,14 @@ Lets break this down with our percentage watched thresholds. This time we'll fir
 ```{r}
 temp = rep(NULL,7)
 val = c()
+#for each video i
 for (i in 1:13)
 {
+  #for each percentage watched threshold p
   for (p in 1:7)
   {
+    #total views are calculated by ((percentaged watched to this point)/100)*total views
+    #needs to be /100 as the 50% is stored just as 50 in the data
     temp[p] = (y3[i,p+8]/100)*y3[i,4] + (y4[i,p+8]/100)*y4[i,4] + 
       (y5[i,p+8]/100)*y5[i,4] + (y6[i,p+8]/100)*y6[i,4] + 
       (y7[i,p+8]/100)*y7[i,4]
@@ -237,6 +245,7 @@ for (i in 1:13)
 {
   for (p in 1:7)
   {
+    #here we can just take the percentages and average them
     temp[p] = (y3[i,p+8] + y4[i,p+8] + y5[i,p+8] + y6[i,p+8] + y7[i,p+8])/5
   }
   val = append(val,temp)
@@ -268,7 +277,7 @@ To investigate this, we'll use a scatter plot.
 duration = rep(NULL,13)
 for (q in 1:13)
 {
-  #duration of videos is the same across years3-7
+  #duration of videos is the same across years3-7 so we only need to grab from one year
   duration[q] = y3[q,3]
 }
 viewdf$duration = duration
@@ -289,6 +298,9 @@ We can see that the longest video, 2.4, has about average views and a normal pat
 Here I'll investigate the habits of users from different continents when watching videos. First, we'll just have a look at which continents make up for the different shares of views. These figures are pulled from each of the year files and are calculated in a similar fashion as before.
 
 ```{r}
+#the continent %s are in columns 22 to 27
+#performing the same calculations for total views as before
+#just this time we're using the continent %s rather than viewed %s
 europe = (y3[[22]]/100)*y3[[4]] + (y4[[22]]/100)*y4[[4]] + (y5[[22]]/100)*y5[[4]] + 
   (y6[[22]]/100)*y6[[4]] + (y7[[22]]/100)*y7[[4]]
 oce = (y3[[23]]/100)*y3[[4]] + (y4[[23]]/100)*y4[[4]] + (y5[[23]]/100)*y5[[4]] + 
