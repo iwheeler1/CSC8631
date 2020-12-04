@@ -63,8 +63,8 @@ labe = c("5%","10%","25%","50%","75%","95%","100%")
 (viddf = data.frame(year=3:7,"5%"=a5p,"10%"=a10p,"25%"=a25p,
                     "50%"=a50p,"75%"=a75p,"95%"=a95p,"100%"=a100p))
 ```
-There are some interesting things to draw already from this data. Year five was a good year for video engagement in terms of overall percentages, whereas year four was actually the worst. We can also see that even for the most engaged years, almost 20% of video views do not even get 5% into the video. Further, there is a conistent dropoff of views that overall means videos lose about 15-20% of the views as the video goes on to the finish.
-In order to visualise this fully, we're going to want to plot our data. Notice how I pointed out that the reason for the above dataframe was readibility alone; we are going to use something else for our plot.
+There are some interesting things to draw already from this data. Year five was a good year for video engagement in terms of overall percentages, whereas year four was actually the worst. We can also see that even for the most engaged years, almost 20% of video views do not even get 5% into the video. Further, there is a consistent drop off of views that overall means videos lose about 15-20% of the views as the video goes on to the finish.
+In order to visualise this fully, we're going to want to plot our data. Notice how I pointed out that the reason for the above dataframe was readability alone; we are going to use something else for our plot.
 GGplot requires that you use a data frame when you plot data, so why do we need another data frame when we've got a perfectly good one sitting around already. Three words; grouped bar plot.
 
 ```{r}
@@ -84,7 +84,7 @@ ggplot(datas, aes(fill=perwatched, y=values, x=year)) +
   geom_bar(position="dodge", stat="identity") + labs(x="Year",y="% of views") + 
   labs(fill = "% watched")
 ```
-This is a very useful plot for our comparison. We can clearly see that although there are slight differences in the percentages across the years, the trend is a very similar one. There is generally a consistent drop in viewers as the video goes on. The most significant drops certainly are from 95% watched to 100% watched, showing that a decent group of students will watch most of the video, but tune out before watching it all. This could possibly indicate that the videos could be slightly shortened. Youtube analyics suggest that in a given video it is normal to see a gradual decline in audience engagement as a video goes on, but sharper decreases like at the end of this video suggest that the something in the video is causing many viewers to stop watching. Source: https://creatoracademy.youtube.com/page/lesson/engagement-analytics?cid=analytics-series&hl=en#strategies-zippy-link-1
+This is a very useful plot for our comparison. We can clearly see that although there are slight differences in the percentages across the years, the trend is a very similar one. There is generally a consistent drop in viewers as the video goes on. The most significant drops certainly are from 95% watched to 100% watched, showing that a decent group of students will watch most of the video, but tune out before watching it all. This could possibly indicate that the videos could be slightly shortened. Youtube analytics suggest that in a given video it is normal to see a gradual decline in audience engagement as a video goes on, but sharper decreases like at the end of this video suggest that the something in the video is causing many viewers to stop watching. Source: https://creatoracademy.youtube.com/page/lesson/engagement-analytics?cid=analytics-series&hl=en#strategies-zippy-link-1
 
 
 ## Overall views
@@ -92,7 +92,7 @@ This is a very useful plot for our comparison. We can clearly see that although 
 The analysis that looks simply at the overall percentages for a year is all well and good, but unfortunately in this course not all videos or years were created equal. There are big differences between years in terms of number of students enrolled, and differences between videos in terms of the number of views on each video.
 Comparisons between videos will be tackled in the next part of this report, but for now lets stay on video engagement across the years.
 
-The percentage analysis we've done thusfar was good for investigating if there was a trend across years as it put all the years on a level playing field for comparison. But, to repeat myself, *not all years are created equal*. To see the overall picture in terms of total views, I needed to alter the calculation I was making for the percentage views. The benefit of my approach for the first part is that we can essentially reproduce the analysis we just did for the percentages, but simply alter our calculations to work out views rather than percentages of views.
+The percentage analysis we've done thus far was good for investigating if there was a trend across years as it put all the years on a level playing field for comparison. But, to repeat myself, *not all years are created equal*. To see the overall picture in terms of total views, I needed to alter the calculation I was making for the percentage views. The benefit of my approach for the first part is that we can essentially reproduce the analysis we just did for the percentages, but simply alter our calculations to work out views rather than percentages of views.
 
 This was done by making another helper function, almost identical to the avgper one used previously.
 
@@ -118,7 +118,7 @@ y6a=helper.avgview(y6)
 y7a=helper.avgview(y7)
 ```
 
-We can form the data frame again for readability. This uses the same code as before when forming the data frame so most of it has been ommited for brevity.
+We can form the data frame again for readability. This uses the same code as before when forming the data frame so most of it has been committed for brevity.
 
 ```{r include = FALSE}
 a5p = c(y3a[1],y4a[1],y5a[1],y6a[1],y7a[1])
@@ -160,13 +160,13 @@ ggplot(datas, aes(fill=perwatched, y=values, x=year)) +
   labs(fill = "% watched")
 ```
 
-Here we can see a more overall picture of what is happening across the years. It is reflective of the situation of enrolements, which fall from 3544 in year 5 to 2342 in year 7. When you take this into account, the apparent decrease in overall views is probably expected. We see the same pattern as we saw with the overall percentages, the decreasing trend across years as students continue to lose interest the further they get into the video.
+Here we can see a more overall picture of what is happening across the years. It is reflective of the situation of enrollments, which fall from 3544 in year 5 to 2342 in year 7. When you take this into account, the apparent decrease in overall views is probably expected. We see the same pattern as we saw with the overall percentages, the decreasing trend across years as students continue to lose interest the further they get into the video.
 As a tool to compare across the years this plot is less useful than the percentage of views plot, as the years have a different number of students enrolled. This will obviously have an effect on the number of views the videos get.
 
 
 # Video comparison
 
-Comparing between the videos presents an interesting discussion about the use of the two plots I have looked at so far. When comparing across years, we are less interested in total views and more looking for trends, and this meant that the percentage graph was of more use to us to fairly compare the years. This is because here I am mainly interested in looking at the video stats, rather than enrolement numbers which define the total view graph.
+Comparing between the videos presents an interesting discussion about the use of the two plots I have looked at so far. When comparing across years, we are less interested in total views and more looking for trends, and this meant that the percentage graph was of more use to us to fairly compare the years. This is because here I am mainly interested in looking at the video stats, rather than enrollment numbers which define the total view graph.
 However I think its fair to say the opposite is true when we are looking to compare across videos. The percentage graph will be helpful to see if there is any particular trend with an individual video, but the total views graph should help to paint a picture of how much a video is watched.
 
 First, lets take a step back and simply look at across all the years how many views each video got. This is a simpler undertaking, we just take the values and sum them from each year for each video, then set up our data frame and plot. With a simple bar plot, we don't need to bother with the different levels that we needed for the grouped bar plot. Essentially, this code is more concise and easier to understand.
@@ -186,7 +186,7 @@ ggplot(data=viewdf, aes(x=video, y=views)) +
   labs(x="Video",y="Views")
 ```
 
-Here we can see that as would be expected, the first video "Welcome" is far and away the most viewed video. There is a sharp decrease to the next video, with the only other video that gets close in terms of views being video 1.5 "Privacy online and offline". There is a clear tail off towards the end of the course, but it seems that it levels out towards the very end. This is a trend that is often evidenced in many modules of undergraduate maths lecture attendence to my own experience.
+Here we can see that as would be expected, the first video "Welcome" is far and away the most viewed video. There is a sharp decrease to the next video, with the only other video that gets close in terms of views being video 1.5 "Privacy online and offline". There is a clear tail off towards the end of the course, but it seems that it levels out towards the very end. This is a trend that is often evidenced in many modules of undergraduate maths lecture attendance to my own experience.
 
 
 Lets break this down with our percentage watched thresholds. This time we'll first consider the total views first.
@@ -231,9 +231,8 @@ ggplot(datas, aes(fill=perwatched, y=values, x=videos)) +
   labs(fill = "% watched")
 ```
 
-
-When we looked at the years comparison plot, it was dependent on enrolements which varied year by year. When comparing across videos however, we are not bound by this and we can see some interesting things. We see a familiar pattern across the board in terms of the general decreas in viewers watching further into the video. However what is most interesting to me in this plot is the degree to which this occurs in each video, with many exhibiting fairly distinct behaviour.
-Take for example 3.14. The videos in the same champer all represent our typical gradual decline from 5% to 100%. 3.14 however displays an incredibly large drop from 95% to 100% watched, indicating something must have cause students to not watch until the end of that video. 1.17 has a similar behviour, whereas 2.17 and 2.1 is remarkably flat in terms of their shape, meaning they managed to retain many more of those who watched only 5% of the video to the end in comparison with others.
+When we looked at the years comparison plot, it was dependent on enrollments which varied year by year. When comparing across videos however, we are not bound by this and we can see some interesting things. We see a familiar pattern across the board in terms of the general decrease in viewers watching further into the video. However what is most interesting to me in this plot is the degree to which this occurs in each video, with many exhibiting fairly distinct behaviour.
+Take for example 3.14. The videos in the same chapter all represent our typical gradual decline from 5% to 100%. 3.14 however displays an incredibly large drop from 95% to 100% watched, indicating something must have cause students to not watch until the end of that video. 1.17 has a similar behavior, whereas 2.17 and 2.1 is remarkably flat in terms of their shape, meaning they managed to retain many more of those who watched only 5% of the video to the end in comparison with others.
 We discussed how 1.5 is the video that is most popular when we discount the welcome 1.1 video, and the trend it displays is very interesting too. More than in most other videos, it loses viewers from the 5% to 50% threshold. 
 
 In order to gain a closer of understanding of the behaviour of the data around the videos across the years, we plot the percentage of views across videos.
@@ -270,7 +269,7 @@ This accentuates the patterns we saw in the previous plot. 3.14 loses almost 20%
 
 
 ## Effect of duration
-Its a reasonable question to ask if duration is having an effect on the watchability of a video, as intuitively, longer videos may require more engagement.
+Its a reasonable question to ask if duration is having an effect on the "watchability" of a video, as intuitively, longer videos may require more engagement.
 To investigate this, we'll use a scatter plot.
 
 ```{r}
@@ -290,7 +289,7 @@ This has been done as an addition to the data frame we used for the simple bar p
 
 
 When we observe this in conjunction with the analysis we've conducted before on the videos, we can pull out some interesting ideas.
-The cluster in the bottom left of the plot represents the shortest videos that are getting a slightly less than average amount of viewers. When we go back and look at the pattern of their viewers engagement, we see that these are the videos with probably the least viewers lost throughout the video. This is insufficient evidence to make any sort of conclusion about shorter videos keeping their audience, as we haven't accounted for the possiblity that less viewed videos have a more committed audience.
+The cluster in the bottom left of the plot represents the shortest videos that are getting a slightly less than average amount of viewers. When we go back and look at the pattern of their viewers engagement, we see that these are the videos with probably the least viewers lost throughout the video. This is insufficient evidence to make any sort of conclusion about shorter videos keeping their audience, as we haven't accounted for the possibility that less viewed videos have a more committed audience.
 We can see that the longest video, 2.4, has about average views and a normal pattern to viewership engagement. In fact most of the longer videos show the more linear decline in viewers as the videos go on.
 
 # Region analysis
@@ -327,9 +326,9 @@ ggplot(data=cont, aes(x=continent, y=views)) +
   labs(x="Continent",y="Views")
 ```
 
-Europe clearly dominates the overall views since the course has been collecting video stats, as you would expect from briefly investigating the enrolement numbers. The next most popular continents of Asia, North America and Africa are also not surprising.
+Europe clearly dominates the overall views since the course has been collecting video stats, as you would expect from briefly investigating the enrollment numbers. The next most popular continents of Asia, North America and Africa are also not surprising.
 
-To further investigate, let's look into if there are differences bewtween videos in terms of where the views are coming from. Here I am going to simplify our continents into "European" and "Non-European", just to simplify our comparisons. It turns out that these groups roughly represent about a 60:40 split of the total views (Europe represents 58% = 23680 views, Non European represents 42% = 17165). Therefore we total up all of the rest of the continents into one vector and create a grouped bar plot to represent how these two differing groups engage with each video.
+To further investigate, let's look into if there are differences between videos in terms of where the views are coming from. Here I am going to simplify our continents into "European" and "Non-European", just to simplify our comparisons. It turns out that these groups roughly represent about a 60:40 split of the total views (Europe represents 58% = 23680 views, Non European represents 42% = 17165). Therefore we total up all of the rest of the continents into one vector and create a grouped bar plot to represent how these two differing groups engage with each video.
 
 ```{r}
 noneurope = oce+asia+NorthAm+SouthAm+africa
@@ -343,7 +342,7 @@ ggplot(dat, aes(fill=video, y=values, x=european)) +
   labs(fill = "Video")
 ```
 
-This plot helps us to separate the trends of the European students and Non-European students. We can see a fairly similar pattern between the groups, with a few noticeable differences. Non-Europeans responsible for a larger proportion of the inital 1.1 welcome video views, and in general less for the other videos. European students comparatively are viewing the welcome video less, but in general engaging with the other videos more.
+This plot helps us to separate the trends of the European students and Non-European students. We can see a fairly similar pattern between the groups, with a few noticeable differences. Non-Europeans responsible for a larger proportion of the initial 1.1 welcome video views, and in general less for the other videos. European students comparatively are viewing the welcome video less, but in general engaging with the other videos more.
 
 To further investigate this, we can look at this as a stacked bar plot of the video views.
 
@@ -353,7 +352,7 @@ ggplot(dat, aes(fill=european, y=values, x=video)) +
   labs(fill = "Continent")
 ```
 
-This plot allows us to get the picture when focussing more on individual video views.
+This plot allows us to get the picture when focusing more on individual video views.
 We can also plot the stacked percentage plot to see a comparative effect.
 
 ```{r}
@@ -362,4 +361,6 @@ ggplot(dat, aes(fill=european, y=values, x=video)) +
   labs(fill = "Continent")
 ```
 
-This shows us without doubt that the Europeans dominate the views of most videos, but in a video like 1.5, Non Europeans make up 45% of views which is slightly more than their overall share of video views.
+This shows us without doubt that the Europeans dominate the views of most videos, but in a video like 1.5, Non Europeans make up 45% of views which is slightly more than their overall share of video views. What we can draw from this is that Non-Europeans are much more likely to watch the 1.1 welcome video, but from there the mix is fairly balanced in terms of views compared against number of enrolements.
+
+Overall we can see from the regional analysis that video views are dominated by the European students due to them being the most represented group in the enrolements. Certain videos are more viewed by Non-European students, but generally videos are engaged with proportionally across the board.

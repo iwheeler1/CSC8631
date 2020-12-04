@@ -1,0 +1,741 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={CSC8631 report},
+  pdfauthor={Isaac Wheeler},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\title{CSC8631 report}
+\author{Isaac Wheeler}
+\date{26/11/2020}
+
+\begin{document}
+\maketitle
+
+In this project, I am going to be providing some analysis of the video
+stats data; asking a few different questions and trying to find any sort
+of pattern within these. Video stats are only provided for years 3-7 so
+this is where the my analysis will be based upon. As mentioned in the
+executive summary, the data in these files is already in a very usable
+state. As such, data preparation takes place before I make different
+parts of my analysis and are included in the code chunks and briefly
+explained.
+
+This report takes the form of asking a few questions about the data.
+I'll indicate what I am looking into, prepare the data to analyse, plot
+and analyse, before evaluating in conjunction with my understanding of
+what the client is looking for in the data.
+
+\hypertarget{video-engagement-across-years}{%
+\section{Video engagement across
+years}\label{video-engagement-across-years}}
+
+\hypertarget{watch-percentages}{%
+\subsection{Watch percentages}\label{watch-percentages}}
+
+The first question I investigated is if there is any significant
+differences between years in terms of engagement with the videos. This
+was by done by looking into how the percentage watched (up to different
+percentages of the video) changed, if at all, across the years.
+
+In order to do this, I knocked up a quick function that would work out
+across all the videos the average percentage of views that made it to
+differing thresholds of the video. These thresholds were 5\%, 10\%,
+25\%, 50\%, 75\%, 95\% and 100\%, and the data were all provided in the
+video stats csv files.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{helper.avgper <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(y)}
+\NormalTok{\{}
+\NormalTok{  temp =}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\OtherTok{NULL}\NormalTok{,}\DecValTok{7}\NormalTok{)}
+  \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{9}\OperatorTok{:}\DecValTok{15}\NormalTok{)}
+\NormalTok{  \{}
+\NormalTok{    temp[i}\DecValTok{-8}\NormalTok{] =}\StringTok{ }\KeywordTok{sum}\NormalTok{(y[i])}\OperatorTok{/}\DecValTok{13}
+\NormalTok{  \}}
+  \KeywordTok{return}\NormalTok{(temp)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+This simple helper function will, when provided with a video stats file
+of the same format, work out the average percentages watched for the
+year, and return it as a vector. This function can be found in the
+helpers file of the repository, along with one other that we're going to
+use later.
+
+So to carry out the analysis, we simply need to run the function for all
+of our years and then plot it.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y3a=}\KeywordTok{helper.avgper}\NormalTok{(y3)}
+\NormalTok{y4a=}\KeywordTok{helper.avgper}\NormalTok{(y4)}
+\NormalTok{y5a=}\KeywordTok{helper.avgper}\NormalTok{(y5)}
+\NormalTok{y6a=}\KeywordTok{helper.avgper}\NormalTok{(y6)}
+\NormalTok{y7a=}\KeywordTok{helper.avgper}\NormalTok{(y7)}
+\end{Highlighting}
+\end{Shaded}
+
+We store each vector on its own. For the benefit of readability alone I
+will put this all into a dataframe also.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a5p =}\StringTok{ }\KeywordTok{c}\NormalTok{(y3a[}\DecValTok{1}\NormalTok{],y4a[}\DecValTok{1}\NormalTok{],y5a[}\DecValTok{1}\NormalTok{],y6a[}\DecValTok{1}\NormalTok{],y7a[}\DecValTok{1}\NormalTok{])}
+\NormalTok{a10p =}\StringTok{ }\KeywordTok{c}\NormalTok{(y3a[}\DecValTok{2}\NormalTok{],y4a[}\DecValTok{2}\NormalTok{],y5a[}\DecValTok{2}\NormalTok{],y6a[}\DecValTok{2}\NormalTok{],y7a[}\DecValTok{2}\NormalTok{])}
+\NormalTok{a25p =}\StringTok{ }\KeywordTok{c}\NormalTok{(y3a[}\DecValTok{3}\NormalTok{],y4a[}\DecValTok{3}\NormalTok{],y5a[}\DecValTok{3}\NormalTok{],y6a[}\DecValTok{3}\NormalTok{],y7a[}\DecValTok{3}\NormalTok{])}
+\NormalTok{a50p =}\StringTok{ }\KeywordTok{c}\NormalTok{(y3a[}\DecValTok{4}\NormalTok{],y4a[}\DecValTok{4}\NormalTok{],y5a[}\DecValTok{4}\NormalTok{],y6a[}\DecValTok{4}\NormalTok{],y7a[}\DecValTok{4}\NormalTok{])}
+\NormalTok{a75p =}\StringTok{ }\KeywordTok{c}\NormalTok{(y3a[}\DecValTok{5}\NormalTok{],y4a[}\DecValTok{5}\NormalTok{],y5a[}\DecValTok{5}\NormalTok{],y6a[}\DecValTok{5}\NormalTok{],y7a[}\DecValTok{5}\NormalTok{])}
+\NormalTok{a95p =}\StringTok{ }\KeywordTok{c}\NormalTok{(y3a[}\DecValTok{6}\NormalTok{],y4a[}\DecValTok{6}\NormalTok{],y5a[}\DecValTok{6}\NormalTok{],y6a[}\DecValTok{6}\NormalTok{],y7a[}\DecValTok{6}\NormalTok{])}
+\NormalTok{a100p =}\StringTok{ }\KeywordTok{c}\NormalTok{(y3a[}\DecValTok{7}\NormalTok{],y4a[}\DecValTok{7}\NormalTok{],y5a[}\DecValTok{7}\NormalTok{],y6a[}\DecValTok{7}\NormalTok{],y7a[}\DecValTok{7}\NormalTok{])}
+
+\NormalTok{labe =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"5%"}\NormalTok{,}\StringTok{"10%"}\NormalTok{,}\StringTok{"25%"}\NormalTok{,}\StringTok{"50%"}\NormalTok{,}\StringTok{"75%"}\NormalTok{,}\StringTok{"95%"}\NormalTok{,}\StringTok{"100%"}\NormalTok{)}
+\NormalTok{(}\DataTypeTok{viddf =} \KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{year=}\DecValTok{3}\OperatorTok{:}\DecValTok{7}\NormalTok{,}\StringTok{"5%"}\NormalTok{=a5p,}\StringTok{"10%"}\NormalTok{=a10p,}\StringTok{"25%"}\NormalTok{=a25p,}
+                    \StringTok{"50%"}\NormalTok{=a50p,}\StringTok{"75%"}\NormalTok{=a75p,}\StringTok{"95%"}\NormalTok{=a95p,}\StringTok{"100%"}\NormalTok{=a100p))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   year      X5.     X10.     X25.     X50.     X75.     X95.    X100.
+## 1    3 74.25846 72.95462 71.10846 68.48462 66.63923 64.25231 56.34308
+## 2    4 73.45077 71.77538 69.59462 66.64692 64.47923 62.24154 55.43231
+## 3    5 78.95000 77.57231 75.00923 72.51154 70.70231 68.69308 60.56000
+## 4    6 78.67692 76.73000 73.97385 71.03385 68.99154 66.77308 57.92846
+## 5    7 74.65308 72.84308 69.24000 66.28231 64.25308 62.05000 55.65769
+\end{verbatim}
+
+There are some interesting things to draw already from this data. Year
+five was a good year for video engagement in terms of overall
+percentages, whereas year four was actually the worst. We can also see
+that even for the most engaged years, almost 20\% of video views do not
+even get 5\% into the video. Further, there is a consistent drop off of
+views that overall means videos lose about 15-20\% of the views as the
+video goes on to the finish. In order to visualise this fully, we're
+going to want to plot our data. Notice how I pointed out that the reason
+for the above dataframe was readability alone; we are going to use
+something else for our plot. GGplot requires that you use a data frame
+when you plot data, so why do we need another data frame when we've got
+a perfectly good one sitting around already. Three words; grouped bar
+plot.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{year =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\StringTok{"year 3"}\NormalTok{,}\DecValTok{7}\NormalTok{),}\KeywordTok{rep}\NormalTok{(}\StringTok{"year 4"}\NormalTok{,}\DecValTok{7}\NormalTok{),}\KeywordTok{rep}\NormalTok{(}\StringTok{"year 5"}\NormalTok{,}\DecValTok{7}\NormalTok{),}
+         \KeywordTok{rep}\NormalTok{(}\StringTok{"year 6"}\NormalTok{,}\DecValTok{7}\NormalTok{),}\KeywordTok{rep}\NormalTok{(}\StringTok{"year 7"}\NormalTok{,}\DecValTok{7}\NormalTok{))}
+\NormalTok{perwatched =}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"5%"}\NormalTok{,}\StringTok{"10%"}\NormalTok{,}\StringTok{"25%"}\NormalTok{,}\StringTok{"50%"}\NormalTok{,}\StringTok{"75%"}\NormalTok{,}\StringTok{"95%"}\NormalTok{,}\StringTok{"100%"}\NormalTok{),}\DecValTok{5}\NormalTok{)}
+\NormalTok{values =}\StringTok{ }\KeywordTok{c}\NormalTok{(y3a,y4a,y5a,y6a,y7a)}
+\NormalTok{(}\DataTypeTok{datas =} \KeywordTok{data.frame}\NormalTok{(year,perwatched,values))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      year perwatched   values
+## 1  year 3         5% 74.25846
+## 2  year 3        10% 72.95462
+## 3  year 3        25% 71.10846
+## 4  year 3        50% 68.48462
+## 5  year 3        75% 66.63923
+## 6  year 3        95% 64.25231
+## 7  year 3       100% 56.34308
+## 8  year 4         5% 73.45077
+## 9  year 4        10% 71.77538
+## 10 year 4        25% 69.59462
+## 11 year 4        50% 66.64692
+## 12 year 4        75% 64.47923
+## 13 year 4        95% 62.24154
+## 14 year 4       100% 55.43231
+## 15 year 5         5% 78.95000
+## 16 year 5        10% 77.57231
+## 17 year 5        25% 75.00923
+## 18 year 5        50% 72.51154
+## 19 year 5        75% 70.70231
+## 20 year 5        95% 68.69308
+## 21 year 5       100% 60.56000
+## 22 year 6         5% 78.67692
+## 23 year 6        10% 76.73000
+## 24 year 6        25% 73.97385
+## 25 year 6        50% 71.03385
+## 26 year 6        75% 68.99154
+## 27 year 6        95% 66.77308
+## 28 year 6       100% 57.92846
+## 29 year 7         5% 74.65308
+## 30 year 7        10% 72.84308
+## 31 year 7        25% 69.24000
+## 32 year 7        50% 66.28231
+## 33 year 7        75% 64.25308
+## 34 year 7        95% 62.05000
+## 35 year 7       100% 55.65769
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{datas}\OperatorTok{$}\NormalTok{perwatched =}\StringTok{ }\KeywordTok{factor}\NormalTok{(datas}\OperatorTok{$}\NormalTok{perwatched, }\DataTypeTok{levels=}\KeywordTok{c}\NormalTok{(}\StringTok{"5%"}\NormalTok{,}\StringTok{"10%"}\NormalTok{,}\StringTok{"25%"}\NormalTok{,}
+                                                     \StringTok{"50%"}\NormalTok{,}\StringTok{"75%"}\NormalTok{,}\StringTok{"95%"}\NormalTok{,}\StringTok{"100%"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+Let's explain whats going on here. In order for GGplot to get the
+grouped bar plot to work, it needs to know effectively two x elements of
+each y. Here, the year part of this data frame is the group that the
+each observation is a part of, and the perwatched is identifying our
+percentage watched. The two dataframes are essentially the same thing,
+just the second one is very long and not easily readable. However, it
+enables us to plot a grouped bar plot that allows us to easily visualise
+the differences in year.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(datas, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{fill=}\NormalTok{perwatched, }\DataTypeTok{y=}\NormalTok{values, }\DataTypeTok{x=}\NormalTok{year)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{position=}\StringTok{"dodge"}\NormalTok{, }\DataTypeTok{stat=}\StringTok{"identity"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x=}\StringTok{"Year"}\NormalTok{,}\DataTypeTok{y=}\StringTok{"% of views"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"% watched"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{report1_files/figure-latex/unnamed-chunk-6-1.pdf} This
+is a very useful plot for our comparison. We can clearly see that
+although there are slight differences in the percentages across the
+years, the trend is a very similar one. There is generally a consistent
+drop in viewers as the video goes on. The most significant drops
+certainly are from 95\% watched to 100\% watched, showing that a decent
+group of students will watch most of the video, but tune out before
+watching it all. This could possibly indicate that the videos could be
+slightly shortened. Youtube analytics suggest that in a given video it
+is normal to see a gradual decline in audience engagement as a video
+goes on, but sharper decreases like at the end of this video suggest
+that the something in the video is causing many viewers to stop
+watching. Source:
+\url{https://creatoracademy.youtube.com/page/lesson/engagement-analytics?cid=analytics-series\&hl=en\#strategies-zippy-link-1}
+
+\hypertarget{overall-views}{%
+\subsection{Overall views}\label{overall-views}}
+
+The analysis that looks simply at the overall percentages for a year is
+all well and good, but unfortunately in this course not all videos or
+years were created equal. There are big differences between years in
+terms of number of students enrolled, and differences between videos in
+terms of the number of views on each video. Comparisons between videos
+will be tackled in the next part of this report, but for now lets stay
+on video engagement across the years.
+
+The percentage analysis we've done thus far was good for investigating
+if there was a trend across years as it put all the years on a level
+playing field for comparison. But, to repeat myself, \emph{not all years
+are created equal}. To see the overall picture in terms of total views,
+I needed to alter the calculation I was making for the percentage views.
+The benefit of my approach for the first part is that we can essentially
+reproduce the analysis we just did for the percentages, but simply alter
+our calculations to work out views rather than percentages of views.
+
+This was done by making another helper function, almost identical to the
+avgper one used previously.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{helper.avgview <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(y)}
+\NormalTok{\{}
+\NormalTok{  temp =}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\OtherTok{NULL}\NormalTok{,}\DecValTok{7}\NormalTok{)}
+  \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{9}\OperatorTok{:}\DecValTok{15}\NormalTok{)}
+\NormalTok{  \{}
+\NormalTok{    temp[i}\DecValTok{-8}\NormalTok{] =}\StringTok{ }\KeywordTok{sum}\NormalTok{((y[i]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y[}\DecValTok{4}\NormalTok{])}\OperatorTok{/}\DecValTok{13}
+\NormalTok{  \}}
+  \KeywordTok{return}\NormalTok{(temp)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Avgview simply does the same calculation but using the total views we
+can work out how many views crossed each threshold per year. We now
+simply use this function to get our vectors of views.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y3a=}\KeywordTok{helper.avgview}\NormalTok{(y3)}
+\NormalTok{y4a=}\KeywordTok{helper.avgview}\NormalTok{(y4)}
+\NormalTok{y5a=}\KeywordTok{helper.avgview}\NormalTok{(y5)}
+\NormalTok{y6a=}\KeywordTok{helper.avgview}\NormalTok{(y6)}
+\NormalTok{y7a=}\KeywordTok{helper.avgview}\NormalTok{(y7)}
+\end{Highlighting}
+\end{Shaded}
+
+We can form the data frame again for readability. This uses the same
+code as before when forming the data frame so most of it has been
+committed for brevity.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{viddf =} \KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{year=}\DecValTok{3}\OperatorTok{:}\DecValTok{7}\NormalTok{,}\StringTok{"5%"}\NormalTok{=a5p,}\StringTok{"10%"}\NormalTok{=a10p,}\StringTok{"25%"}\NormalTok{=a25p,}
+                    \StringTok{"50%"}\NormalTok{=a50p,}\StringTok{"75%"}\NormalTok{=a75p,}\StringTok{"95%"}\NormalTok{=a95p,}\StringTok{"100%"}\NormalTok{=a100p))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   year      X5.     X10.     X25.     X50.     X75.     X95.    X100.
+## 1    3 552.6984 541.9287 525.4658 504.5362 489.8368 472.4660 416.1434
+## 2    4 589.6921 576.6123 555.3760 529.4631 509.9937 493.5414 440.9319
+## 3    5 637.6308 624.5319 601.8566 579.3067 563.3838 548.3748 484.7548
+## 4    6 355.6128 345.4624 330.3835 312.6920 301.3063 291.4648 252.8473
+## 5    7 306.5378 298.5349 282.4682 267.9933 258.6968 250.3831 227.6115
+\end{verbatim}
+
+We see a similar decreasing pattern as with the percentages, but here we
+see the actual effect on the views.
+
+Now in order to plot we form another data frame for the grouped bar
+plot. Again, this is done with exactly the same code as before so is
+omitted.
+
+Once this is done, we plot our data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(datas, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{fill=}\NormalTok{perwatched, }\DataTypeTok{y=}\NormalTok{values, }\DataTypeTok{x=}\NormalTok{year)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{position=}\StringTok{"dodge"}\NormalTok{, }\DataTypeTok{stat=}\StringTok{"identity"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x=}\StringTok{"Year"}\NormalTok{,}\DataTypeTok{y=}\StringTok{"Views"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"% watched"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{report1_files/figure-latex/unnamed-chunk-12-1.pdf}
+
+Here we can see a more overall picture of what is happening across the
+years. It is reflective of the situation of enrollments, which fall from
+3544 in year 5 to 2342 in year 7. When you take this into account, the
+apparent decrease in overall views is probably expected. We see the same
+pattern as we saw with the overall percentages, the decreasing trend
+across years as students continue to lose interest the further they get
+into the video. As a tool to compare across the years this plot is less
+useful than the percentage of views plot, as the years have a different
+number of students enrolled. This will obviously have an effect on the
+number of views the videos get.
+
+\hypertarget{video-comparison}{%
+\section{Video comparison}\label{video-comparison}}
+
+Comparing between the videos presents an interesting discussion about
+the use of the two plots I have looked at so far. When comparing across
+years, we are less interested in total views and more looking for
+trends, and this meant that the percentage graph was of more use to us
+to fairly compare the years. This is because here I am mainly interested
+in looking at the video stats, rather than enrollment numbers which
+define the total view graph. However I think its fair to say the
+opposite is true when we are looking to compare across videos. The
+percentage graph will be helpful to see if there is any particular trend
+with an individual video, but the total views graph should help to paint
+a picture of how much a video is watched.
+
+First, lets take a step back and simply look at across all the years how
+many views each video got. This is a simpler undertaking, we just take
+the values and sum them from each year for each video, then set up our
+data frame and plot. With a simple bar plot, we don't need to bother
+with the different levels that we needed for the grouped bar plot.
+Essentially, this code is more concise and easier to understand.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{views =}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\OtherTok{NULL}\NormalTok{,}\DecValTok{13}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{13}\NormalTok{)}
+\NormalTok{\{}
+  \CommentTok{#for video with row index j, get the total views (column 4) and add them up}
+\NormalTok{  views[j] =}\StringTok{ }\NormalTok{y3[j,}\DecValTok{4}\NormalTok{] }\OperatorTok{+}\StringTok{ }\NormalTok{y4[j,}\DecValTok{4}\NormalTok{] }\OperatorTok{+}\StringTok{ }\NormalTok{y5[j,}\DecValTok{4}\NormalTok{] }\OperatorTok{+}\StringTok{ }\NormalTok{y6[j,}\DecValTok{4}\NormalTok{] }\OperatorTok{+}\StringTok{ }\NormalTok{y7[j,}\DecValTok{4}\NormalTok{]}
+\NormalTok{\}}
+\NormalTok{v =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"1.1"}\NormalTok{,}\StringTok{"1.14"}\NormalTok{,}\StringTok{"1.17"}\NormalTok{,}\StringTok{"1.19"}\NormalTok{,}\StringTok{"1.5"}\NormalTok{,}\StringTok{"2.1"}\NormalTok{,}\StringTok{"2.11"}\NormalTok{,}
+      \StringTok{"2.17"}\NormalTok{,}\StringTok{"2.4"}\NormalTok{,}\StringTok{"3.1"}\NormalTok{,}\StringTok{"3.14"}\NormalTok{,}\StringTok{"3.15"}\NormalTok{,}\StringTok{"3.2"}\NormalTok{)}
+\NormalTok{viewdf =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{video=}\NormalTok{v, }\DataTypeTok{views=}\NormalTok{views)}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data=}\NormalTok{viewdf, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{video, }\DataTypeTok{y=}\NormalTok{views)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{stat=}\StringTok{"identity"}\NormalTok{, }\DataTypeTok{fill=}\StringTok{"steelblue"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x=}\StringTok{"Video"}\NormalTok{,}\DataTypeTok{y=}\StringTok{"Views"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{report1_files/figure-latex/unnamed-chunk-13-1.pdf}
+
+Here we can see that as would be expected, the first video ``Welcome''
+is far and away the most viewed video. There is a sharp decrease to the
+next video, with the only other video that gets close in terms of views
+being video 1.5 ``Privacy online and offline''. There is a clear tail
+off towards the end of the course, but it seems that it levels out
+towards the very end. This is a trend that is often evidenced in many
+modules of undergraduate maths lecture attendance to my own experience.
+
+Lets break this down with our percentage watched thresholds. This time
+we'll first consider the total views first.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{temp =}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\OtherTok{NULL}\NormalTok{,}\DecValTok{7}\NormalTok{)}
+\NormalTok{val =}\StringTok{ }\KeywordTok{c}\NormalTok{()}
+\CommentTok{#for each video i}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{13}\NormalTok{)}
+\NormalTok{\{}
+  \CommentTok{#for each percentage watched threshold p}
+  \ControlFlowTok{for}\NormalTok{ (p }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{7}\NormalTok{)}
+\NormalTok{  \{}
+    \CommentTok{#total views are calculated by ((percentaged watched to this point)/100)*total views}
+    \CommentTok{#needs to be /100 as the 50% is stored just as 50 in the data}
+\NormalTok{    temp[p] =}\StringTok{ }\NormalTok{(y3[i,p}\OperatorTok{+}\DecValTok{8}\NormalTok{]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y3[i,}\DecValTok{4}\NormalTok{] }\OperatorTok{+}\StringTok{ }\NormalTok{(y4[i,p}\OperatorTok{+}\DecValTok{8}\NormalTok{]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y4[i,}\DecValTok{4}\NormalTok{] }\OperatorTok{+}\StringTok{ }
+\StringTok{      }\NormalTok{(y5[i,p}\OperatorTok{+}\DecValTok{8}\NormalTok{]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y5[i,}\DecValTok{4}\NormalTok{] }\OperatorTok{+}\StringTok{ }\NormalTok{(y6[i,p}\OperatorTok{+}\DecValTok{8}\NormalTok{]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y6[i,}\DecValTok{4}\NormalTok{] }\OperatorTok{+}\StringTok{ }
+\StringTok{      }\NormalTok{(y7[i,p}\OperatorTok{+}\DecValTok{8}\NormalTok{]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y7[i,}\DecValTok{4}\NormalTok{]}
+\NormalTok{  \}}
+\NormalTok{  val =}\StringTok{ }\KeywordTok{append}\NormalTok{(val,temp)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+In this chunk I've iterated through each video and within that each
+percentage watched threshold, calculating the number of views for each
+video that passed each threshold. In the earlier part of my analysis
+where I compared across years I presented this part in a readable data
+frame output. However, we have a lot of data to represent here so I've
+skipped straight to plotting it. Hence why the data is actually stored
+in one long vector rather than separate ones.
+
+You'll hopefully recognise at least the structure of the following code
+by now. We are setting up a data frame for a grouped bar plot, building
+it very long so that the plot knows about the two x elements of every y.
+We group the percentage watched thresholds by video and plot.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{videos =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\StringTok{"1.1"}\NormalTok{,}\DecValTok{7}\NormalTok{),}\KeywordTok{rep}\NormalTok{(}\StringTok{"1.14"}\NormalTok{,}\DecValTok{7}\NormalTok{),}\KeywordTok{rep}\NormalTok{(}\StringTok{"1.17"}\NormalTok{,}\DecValTok{7}\NormalTok{),}\KeywordTok{rep}\NormalTok{(}\StringTok{"1.19"}\NormalTok{,}\DecValTok{7}\NormalTok{),}
+           \KeywordTok{rep}\NormalTok{(}\StringTok{"1.5"}\NormalTok{,}\DecValTok{7}\NormalTok{),}\KeywordTok{rep}\NormalTok{(}\StringTok{"2.1"}\NormalTok{,}\DecValTok{7}\NormalTok{),}\KeywordTok{rep}\NormalTok{(}\StringTok{"2.11"}\NormalTok{,}\DecValTok{7}\NormalTok{),}\KeywordTok{rep}\NormalTok{(}\StringTok{"2.17"}\NormalTok{,}\DecValTok{7}\NormalTok{),}\KeywordTok{rep}\NormalTok{(}\StringTok{"2.4"}\NormalTok{,}\DecValTok{7}\NormalTok{),}
+           \KeywordTok{rep}\NormalTok{(}\StringTok{"3.1"}\NormalTok{,}\DecValTok{7}\NormalTok{),}\KeywordTok{rep}\NormalTok{(}\StringTok{"3.14"}\NormalTok{,}\DecValTok{7}\NormalTok{),}\KeywordTok{rep}\NormalTok{(}\StringTok{"3.15"}\NormalTok{,}\DecValTok{7}\NormalTok{),}\KeywordTok{rep}\NormalTok{(}\StringTok{"3.2"}\NormalTok{,}\DecValTok{7}\NormalTok{))}
+\NormalTok{perwatched =}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"5%"}\NormalTok{,}\StringTok{"10%"}\NormalTok{,}\StringTok{"25%"}\NormalTok{,}\StringTok{"50%"}\NormalTok{,}\StringTok{"75%"}\NormalTok{,}\StringTok{"95%"}\NormalTok{,}\StringTok{"100%"}\NormalTok{),}\DecValTok{13}\NormalTok{)}
+\NormalTok{values =}\StringTok{ }\NormalTok{val}
+\NormalTok{datas =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(videos,perwatched,values)}
+\NormalTok{datas}\OperatorTok{$}\NormalTok{perwatched =}\StringTok{ }\KeywordTok{factor}\NormalTok{(datas}\OperatorTok{$}\NormalTok{perwatched, }\DataTypeTok{levels=}\KeywordTok{c}\NormalTok{(}\StringTok{"5%"}\NormalTok{,}\StringTok{"10%"}\NormalTok{,}\StringTok{"25%"}\NormalTok{,}
+                                                     \StringTok{"50%"}\NormalTok{,}\StringTok{"75%"}\NormalTok{,}\StringTok{"95%"}\NormalTok{,}\StringTok{"100%"}\NormalTok{))}
+
+\KeywordTok{ggplot}\NormalTok{(datas, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{fill=}\NormalTok{perwatched, }\DataTypeTok{y=}\NormalTok{values, }\DataTypeTok{x=}\NormalTok{videos)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{position=}\StringTok{"dodge"}\NormalTok{, }\DataTypeTok{stat=}\StringTok{"identity"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x=}\StringTok{"Video"}\NormalTok{,}\DataTypeTok{y=}\StringTok{"Views"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"% watched"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{report1_files/figure-latex/unnamed-chunk-15-1.pdf}
+
+When we looked at the years comparison plot, it was dependent on
+enrollments which varied year by year. When comparing across videos
+however, we are not bound by this and we can see some interesting
+things. We see a familiar pattern across the board in terms of the
+general decrease in viewers watching further into the video. However
+what is most interesting to me in this plot is the degree to which this
+occurs in each video, with many exhibiting fairly distinct behaviour.
+Take for example 3.14. The videos in the same chapter all represent our
+typical gradual decline from 5\% to 100\%. 3.14 however displays an
+incredibly large drop from 95\% to 100\% watched, indicating something
+must have cause students to not watch until the end of that video. 1.17
+has a similar behavior, whereas 2.17 and 2.1 is remarkably flat in terms
+of their shape, meaning they managed to retain many more of those who
+watched only 5\% of the video to the end in comparison with others. We
+discussed how 1.5 is the video that is most popular when we discount the
+welcome 1.1 video, and the trend it displays is very interesting too.
+More than in most other videos, it loses viewers from the 5\% to 50\%
+threshold.
+
+In order to gain a closer of understanding of the behaviour of the data
+around the videos across the years, we plot the percentage of views
+across videos.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{temp =}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\OtherTok{NULL}\NormalTok{,}\DecValTok{7}\NormalTok{)}
+\NormalTok{val =}\StringTok{ }\KeywordTok{c}\NormalTok{()}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{13}\NormalTok{)}
+\NormalTok{\{}
+  \ControlFlowTok{for}\NormalTok{ (p }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{7}\NormalTok{)}
+\NormalTok{  \{}
+    \CommentTok{#here we can just take the percentages and average them}
+\NormalTok{    temp[p] =}\StringTok{ }\NormalTok{(y3[i,p}\OperatorTok{+}\DecValTok{8}\NormalTok{] }\OperatorTok{+}\StringTok{ }\NormalTok{y4[i,p}\OperatorTok{+}\DecValTok{8}\NormalTok{] }\OperatorTok{+}\StringTok{ }\NormalTok{y5[i,p}\OperatorTok{+}\DecValTok{8}\NormalTok{] }\OperatorTok{+}\StringTok{ }\NormalTok{y6[i,p}\OperatorTok{+}\DecValTok{8}\NormalTok{] }\OperatorTok{+}\StringTok{ }\NormalTok{y7[i,p}\OperatorTok{+}\DecValTok{8}\NormalTok{])}\OperatorTok{/}\DecValTok{5}
+\NormalTok{  \}}
+\NormalTok{  val =}\StringTok{ }\KeywordTok{append}\NormalTok{(val,temp)}
+\NormalTok{\}}
+
+\NormalTok{videos =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\StringTok{"1.1"}\NormalTok{,}\DecValTok{7}\NormalTok{),}\KeywordTok{rep}\NormalTok{(}\StringTok{"1.14"}\NormalTok{,}\DecValTok{7}\NormalTok{),}\KeywordTok{rep}\NormalTok{(}\StringTok{"1.17"}\NormalTok{,}\DecValTok{7}\NormalTok{),}\KeywordTok{rep}\NormalTok{(}\StringTok{"1.19"}\NormalTok{,}\DecValTok{7}\NormalTok{),}
+           \KeywordTok{rep}\NormalTok{(}\StringTok{"1.5"}\NormalTok{,}\DecValTok{7}\NormalTok{),}\KeywordTok{rep}\NormalTok{(}\StringTok{"2.1"}\NormalTok{,}\DecValTok{7}\NormalTok{),}\KeywordTok{rep}\NormalTok{(}\StringTok{"2.11"}\NormalTok{,}\DecValTok{7}\NormalTok{),}\KeywordTok{rep}\NormalTok{(}\StringTok{"2.17"}\NormalTok{,}\DecValTok{7}\NormalTok{),}\KeywordTok{rep}\NormalTok{(}\StringTok{"2.4"}\NormalTok{,}\DecValTok{7}\NormalTok{),}
+           \KeywordTok{rep}\NormalTok{(}\StringTok{"3.1"}\NormalTok{,}\DecValTok{7}\NormalTok{),}\KeywordTok{rep}\NormalTok{(}\StringTok{"3.14"}\NormalTok{,}\DecValTok{7}\NormalTok{),}\KeywordTok{rep}\NormalTok{(}\StringTok{"3.15"}\NormalTok{,}\DecValTok{7}\NormalTok{),}\KeywordTok{rep}\NormalTok{(}\StringTok{"3.2"}\NormalTok{,}\DecValTok{7}\NormalTok{))}
+\NormalTok{perwatched =}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"5%"}\NormalTok{,}\StringTok{"10%"}\NormalTok{,}\StringTok{"25%"}\NormalTok{,}\StringTok{"50%"}\NormalTok{,}\StringTok{"75%"}\NormalTok{,}\StringTok{"95%"}\NormalTok{,}\StringTok{"100%"}\NormalTok{),}\DecValTok{13}\NormalTok{)}
+\NormalTok{values =}\StringTok{ }\NormalTok{val}
+\NormalTok{datas =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(videos,perwatched,values)}
+\NormalTok{datas}\OperatorTok{$}\NormalTok{perwatched =}\StringTok{ }\KeywordTok{factor}\NormalTok{(datas}\OperatorTok{$}\NormalTok{perwatched, }\DataTypeTok{levels=}\KeywordTok{c}\NormalTok{(}\StringTok{"5%"}\NormalTok{,}\StringTok{"10%"}\NormalTok{,}\StringTok{"25%"}\NormalTok{,}
+                                                     \StringTok{"50%"}\NormalTok{,}\StringTok{"75%"}\NormalTok{,}\StringTok{"95%"}\NormalTok{,}\StringTok{"100%"}\NormalTok{))}
+
+\KeywordTok{ggplot}\NormalTok{(datas, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{fill=}\NormalTok{perwatched, }\DataTypeTok{y=}\NormalTok{values, }\DataTypeTok{x=}\NormalTok{videos)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{position=}\StringTok{"dodge"}\NormalTok{, }\DataTypeTok{stat=}\StringTok{"identity"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x=}\StringTok{"Video"}\NormalTok{,}\DataTypeTok{y=}\StringTok{"% of views"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"% watched"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{report1_files/figure-latex/unnamed-chunk-16-1.pdf}
+
+This accentuates the patterns we saw in the previous plot. 3.14 loses
+almost 20\% of its audience that watched 95\% of the video before the
+end. Considering most videos aren't losing that proportion of its
+audience across the whole video, this further reinforces the implication
+that something in that video is making users not watch the last 5\% of
+the video.
+
+\hypertarget{effect-of-duration}{%
+\subsection{Effect of duration}\label{effect-of-duration}}
+
+Its a reasonable question to ask if duration is having an effect on the
+``watchability'' of a video, as intuitively, longer videos may require
+more engagement. To investigate this, we'll use a scatter plot.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{duration =}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\OtherTok{NULL}\NormalTok{,}\DecValTok{13}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (q }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{13}\NormalTok{)}
+\NormalTok{\{}
+  \CommentTok{#duration of videos is the same across years3-7 so we only need to grab from one year}
+\NormalTok{  duration[q] =}\StringTok{ }\NormalTok{y3[q,}\DecValTok{3}\NormalTok{]}
+\NormalTok{\}}
+\NormalTok{viewdf}\OperatorTok{$}\NormalTok{duration =}\StringTok{ }\NormalTok{duration}
+
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data=}\NormalTok{viewdf, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{duration,}\DataTypeTok{y=}\NormalTok{views)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{size=}\DecValTok{3}\NormalTok{,}\DataTypeTok{colour=}\StringTok{"steelblue"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_text}\NormalTok{(}\DataTypeTok{label=}\NormalTok{viewdf}\OperatorTok{$}\NormalTok{video,}\DataTypeTok{nudge_y =} \DecValTok{200}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{report1_files/figure-latex/unnamed-chunk-17-1.pdf}
+
+This has been done as an addition to the data frame we used for the
+simple bar plot of videos against views. Here we can see that there's no
+real overall pattern to the plot, so we cant really say anything about
+duration having an effect on viewership of videos.
+
+When we observe this in conjunction with the analysis we've conducted
+before on the videos, we can pull out some interesting ideas. The
+cluster in the bottom left of the plot represents the shortest videos
+that are getting a slightly less than average amount of viewers. When we
+go back and look at the pattern of their viewers engagement, we see that
+these are the videos with probably the least viewers lost throughout the
+video. This is insufficient evidence to make any sort of conclusion
+about shorter videos keeping their audience, as we haven't accounted for
+the possibility that less viewed videos have a more committed audience.
+We can see that the longest video, 2.4, has about average views and a
+normal pattern to viewership engagement. In fact most of the longer
+videos show the more linear decline in viewers as the videos go on.
+
+\hypertarget{region-analysis}{%
+\section{Region analysis}\label{region-analysis}}
+
+Here I'll investigate the habits of users from different continents when
+watching videos. First, we'll just have a look at which continents make
+up for the different shares of views. These figures are pulled from each
+of the year files and are calculated in a similar fashion as before.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#the continent %s are in columns 22 to 27}
+\CommentTok{#performing the same calculations for total views as before}
+\CommentTok{#just this time we're using the continent %s rather than viewed %s}
+\NormalTok{europe =}\StringTok{ }\NormalTok{(y3[[}\DecValTok{22}\NormalTok{]]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y3[[}\DecValTok{4}\NormalTok{]] }\OperatorTok{+}\StringTok{ }\NormalTok{(y4[[}\DecValTok{22}\NormalTok{]]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y4[[}\DecValTok{4}\NormalTok{]] }\OperatorTok{+}\StringTok{ }\NormalTok{(y5[[}\DecValTok{22}\NormalTok{]]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y5[[}\DecValTok{4}\NormalTok{]] }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\NormalTok{(y6[[}\DecValTok{22}\NormalTok{]]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y6[[}\DecValTok{4}\NormalTok{]] }\OperatorTok{+}\StringTok{ }\NormalTok{(y7[[}\DecValTok{22}\NormalTok{]]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y7[[}\DecValTok{4}\NormalTok{]]}
+\NormalTok{oce =}\StringTok{ }\NormalTok{(y3[[}\DecValTok{23}\NormalTok{]]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y3[[}\DecValTok{4}\NormalTok{]] }\OperatorTok{+}\StringTok{ }\NormalTok{(y4[[}\DecValTok{23}\NormalTok{]]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y4[[}\DecValTok{4}\NormalTok{]] }\OperatorTok{+}\StringTok{ }\NormalTok{(y5[[}\DecValTok{23}\NormalTok{]]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y5[[}\DecValTok{4}\NormalTok{]] }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\NormalTok{(y6[[}\DecValTok{23}\NormalTok{]]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y6[[}\DecValTok{4}\NormalTok{]] }\OperatorTok{+}\StringTok{ }\NormalTok{(y7[[}\DecValTok{23}\NormalTok{]]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y7[[}\DecValTok{4}\NormalTok{]]}
+\NormalTok{asia =}\StringTok{ }\NormalTok{(y3[[}\DecValTok{24}\NormalTok{]]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y3[[}\DecValTok{4}\NormalTok{]] }\OperatorTok{+}\StringTok{ }\NormalTok{(y4[[}\DecValTok{24}\NormalTok{]]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y4[[}\DecValTok{4}\NormalTok{]] }\OperatorTok{+}\StringTok{ }\NormalTok{(y5[[}\DecValTok{24}\NormalTok{]]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y5[[}\DecValTok{4}\NormalTok{]] }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\NormalTok{(y6[[}\DecValTok{24}\NormalTok{]]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y6[[}\DecValTok{4}\NormalTok{]] }\OperatorTok{+}\StringTok{ }\NormalTok{(y7[[}\DecValTok{24}\NormalTok{]]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y7[[}\DecValTok{4}\NormalTok{]]}
+\NormalTok{NorthAm =}\StringTok{ }\NormalTok{(y3[[}\DecValTok{25}\NormalTok{]]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y3[[}\DecValTok{4}\NormalTok{]] }\OperatorTok{+}\StringTok{ }\NormalTok{(y4[[}\DecValTok{25}\NormalTok{]]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y4[[}\DecValTok{4}\NormalTok{]] }\OperatorTok{+}\StringTok{ }\NormalTok{(y5[[}\DecValTok{25}\NormalTok{]]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y5[[}\DecValTok{4}\NormalTok{]] }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\NormalTok{(y6[[}\DecValTok{25}\NormalTok{]]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y6[[}\DecValTok{4}\NormalTok{]] }\OperatorTok{+}\StringTok{ }\NormalTok{(y7[[}\DecValTok{25}\NormalTok{]]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y7[[}\DecValTok{4}\NormalTok{]]}
+\NormalTok{SouthAm =}\StringTok{ }\NormalTok{(y3[[}\DecValTok{26}\NormalTok{]]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y3[[}\DecValTok{4}\NormalTok{]] }\OperatorTok{+}\StringTok{ }\NormalTok{(y4[[}\DecValTok{26}\NormalTok{]]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y4[[}\DecValTok{4}\NormalTok{]] }\OperatorTok{+}\StringTok{ }\NormalTok{(y5[[}\DecValTok{26}\NormalTok{]]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y5[[}\DecValTok{4}\NormalTok{]] }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\NormalTok{(y6[[}\DecValTok{26}\NormalTok{]]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y6[[}\DecValTok{4}\NormalTok{]] }\OperatorTok{+}\StringTok{ }\NormalTok{(y7[[}\DecValTok{26}\NormalTok{]]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y7[[}\DecValTok{4}\NormalTok{]]}
+\NormalTok{africa =}\StringTok{ }\NormalTok{(y3[[}\DecValTok{27}\NormalTok{]]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y3[[}\DecValTok{4}\NormalTok{]] }\OperatorTok{+}\StringTok{ }\NormalTok{(y4[[}\DecValTok{27}\NormalTok{]]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y4[[}\DecValTok{4}\NormalTok{]] }\OperatorTok{+}\StringTok{ }\NormalTok{(y5[[}\DecValTok{27}\NormalTok{]]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y5[[}\DecValTok{4}\NormalTok{]] }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\NormalTok{(y6[[}\DecValTok{27}\NormalTok{]]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y6[[}\DecValTok{4}\NormalTok{]] }\OperatorTok{+}\StringTok{ }\NormalTok{(y7[[}\DecValTok{27}\NormalTok{]]}\OperatorTok{/}\DecValTok{100}\NormalTok{)}\OperatorTok{*}\NormalTok{y7[[}\DecValTok{4}\NormalTok{]]}
+\end{Highlighting}
+\end{Shaded}
+
+These vectors calculate the share each region has of the total views of
+each video. This will be useful for the next plot we do after this. For
+now, we need to sum these to get our region bar plot.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{values =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\KeywordTok{sum}\NormalTok{(europe),}\KeywordTok{sum}\NormalTok{(oce),}\KeywordTok{sum}\NormalTok{(asia),}\KeywordTok{sum}\NormalTok{(NorthAm),}\KeywordTok{sum}\NormalTok{(SouthAm),}\KeywordTok{sum}\NormalTok{(africa))}
+\NormalTok{continents =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Europe"}\NormalTok{, }\StringTok{"Oceania"}\NormalTok{, }\StringTok{"Asia"}\NormalTok{, }
+               \StringTok{"North America"}\NormalTok{, }\StringTok{"South America"}\NormalTok{, }\StringTok{"Africa"}\NormalTok{)}
+\NormalTok{cont =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{continent =}\NormalTok{ continents, }\DataTypeTok{views =}\NormalTok{ values)}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data=}\NormalTok{cont, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{continent, }\DataTypeTok{y=}\NormalTok{views)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{stat=}\StringTok{"identity"}\NormalTok{, }\DataTypeTok{fill=}\StringTok{"steelblue"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x=}\StringTok{"Continent"}\NormalTok{,}\DataTypeTok{y=}\StringTok{"Views"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{report1_files/figure-latex/unnamed-chunk-19-1.pdf}
+
+Europe clearly dominates the overall views since the course has been
+collecting video stats, as you would expect from briefly investigating
+the enrollment numbers. The next most popular continents of Asia, North
+America and Africa are also not surprising.
+
+To further investigate, let's look into if there are differences between
+videos in terms of where the views are coming from. Here I am going to
+simplify our continents into ``European'' and ``Non-European'', just to
+simplify our comparisons. It turns out that these groups roughly
+represent about a 60:40 split of the total views (Europe represents 58\%
+= 23680 views, Non European represents 42\% = 17165). Therefore we total
+up all of the rest of the continents into one vector and create a
+grouped bar plot to represent how these two differing groups engage with
+each video.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{noneurope =}\StringTok{ }\NormalTok{oce}\OperatorTok{+}\NormalTok{asia}\OperatorTok{+}\NormalTok{NorthAm}\OperatorTok{+}\NormalTok{SouthAm}\OperatorTok{+}\NormalTok{africa}
+\NormalTok{values =}\StringTok{ }\KeywordTok{c}\NormalTok{(europe, noneurope)}
+\NormalTok{video =}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"1.1"}\NormalTok{,}\StringTok{"1.14"}\NormalTok{,}\StringTok{"1.17"}\NormalTok{,}\StringTok{"1.19"}\NormalTok{,}\StringTok{"1.5"}\NormalTok{,}\StringTok{"2.1"}\NormalTok{,}\StringTok{"2.11"}\NormalTok{,}
+              \StringTok{"2.17"}\NormalTok{,}\StringTok{"2.4"}\NormalTok{,}\StringTok{"3.1"}\NormalTok{,}\StringTok{"3.14"}\NormalTok{,}\StringTok{"3.15"}\NormalTok{,}\StringTok{"3.2"}\NormalTok{),}\DecValTok{2}\NormalTok{)}
+\NormalTok{european =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\StringTok{"Europe"}\NormalTok{,}\DecValTok{13}\NormalTok{),}\KeywordTok{rep}\NormalTok{(}\StringTok{"Non-European"}\NormalTok{,}\DecValTok{13}\NormalTok{))}
+\NormalTok{dat =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(video,european,values)}
+\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{fill=}\NormalTok{video, }\DataTypeTok{y=}\NormalTok{values, }\DataTypeTok{x=}\NormalTok{european)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{position=}\StringTok{"dodge"}\NormalTok{, }\DataTypeTok{stat=}\StringTok{"identity"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x=}\StringTok{"Continent"}\NormalTok{,}\DataTypeTok{y=}\StringTok{"Views"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"Video"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{report1_files/figure-latex/unnamed-chunk-20-1.pdf}
+
+This plot helps us to separate the trends of the European students and
+Non-European students. We can see a fairly similar pattern between the
+groups, with a few noticeable differences. Non-Europeans responsible for
+a larger proportion of the initial 1.1 welcome video views, and in
+general less for the other videos. European students comparatively are
+viewing the welcome video less, but in general engaging with the other
+videos more.
+
+To further investigate this, we can look at this as a stacked bar plot
+of the video views.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{fill=}\NormalTok{european, }\DataTypeTok{y=}\NormalTok{values, }\DataTypeTok{x=}\NormalTok{video)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{position=}\StringTok{"stack"}\NormalTok{, }\DataTypeTok{stat=}\StringTok{"identity"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x=}\StringTok{"Video"}\NormalTok{,}\DataTypeTok{y=}\StringTok{"Views"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"Continent"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{report1_files/figure-latex/unnamed-chunk-21-1.pdf}
+
+This plot allows us to get the picture when focusing more on individual
+video views. We can also plot the stacked percentage plot to see a
+comparative effect.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(dat, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{fill=}\NormalTok{european, }\DataTypeTok{y=}\NormalTok{values, }\DataTypeTok{x=}\NormalTok{video)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{position=}\StringTok{"fill"}\NormalTok{, }\DataTypeTok{stat=}\StringTok{"identity"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x=}\StringTok{"Video"}\NormalTok{,}\DataTypeTok{y=}\StringTok{"Views"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"Continent"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{report1_files/figure-latex/unnamed-chunk-22-1.pdf}
+
+This shows us without doubt that the Europeans dominate the views of
+most videos, but in a video like 1.5, Non Europeans make up 45\% of
+views which is slightly more than their overall share of video views.
+What we can draw from this is that Non-Europeans are much more likely to
+watch the 1.1 welcome video, but from there the mix is fairly balanced
+in terms of views compared against number of enrolements.
+
+Overall we can see from the regional analysis that video views are
+dominated by the European students due to them being the most
+represented group in the enrolements. Certain videos are more viewed by
+Non-European students, but generally videos are engaged with
+proportionally across the board.
+
+\end{document}
